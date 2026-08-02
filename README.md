@@ -41,8 +41,8 @@ Campus Transit Hub provides a centralized platform where transport administrator
 | -------- | ---------------------------------------------------- |
 | Kavya    | Authentication & User Management                     |
 | Yashasvi | Bus & Route Management                               |
-| Tanuja   | File Handling, Integration, Main Menu, Documentation |
-| Deeya    | Driver Dashboard, Notifications & Reports            |
+| Tanuja   | File Handling, Notifications & Reports  , Main Menu  |
+| Deeya    | Driver Dashboard ,Integration ,Documentation         |
 
 ---
 
