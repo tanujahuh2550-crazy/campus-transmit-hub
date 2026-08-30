@@ -1,6 +1,6 @@
-# 🚍 Campus Transit Hub
+# 🚍 Campus Transmit Hub
 
-**Campus Transit Hub – Smart Bus Information & Route Management System**
+**Campus Transmit Hub – Smart Bus Information & Route Management System**
 
 A **console-based C++17 application** designed to centralize campus transportation information. Students can search and view buses, routes, schedules, and notifications, while authorized staff and drivers can manage transport information.
 
@@ -48,7 +48,7 @@ A **console-based C++17 application** designed to centralize campus transportati
 ## 📂 Project Structure
 
 ```text
-CampusTransitHub/
+CampusTransmitHub/
 │
 ├── docs/          # Project documentation
 ├── include/       # Header files
@@ -115,25 +115,25 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
-cd CampusTransitHub
+cd CampusTransmitHub
 ```
 
 Compile:
 
 ```bash
-g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransitHub
+g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransmitHub
 ```
 
 Run:
 
 ```bash
-./CampusTransitHub
+./CampusTransmitHub
 ```
 
 On Windows:
 
 ```bash
-CampusTransitHub.exe
+CampusTransmitHub.exe
 ```
 
 ## 🚀 Future Scope
