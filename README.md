@@ -117,7 +117,7 @@ Clone the repository:
 
 ```bash id="1w9h5m"
 git clone <repository-url>
-cd CampusTransitHub
+cd CampusTransmitHub
 ```
 
 Compile:
@@ -129,13 +129,13 @@ g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransitHub
 Run:
 
 ```bash id="g8x4n2"
-./CampusTransitHub
+./CampusTransmitHub
 ```
 
 On Windows:
 
 ```bash id="j2q7mw"
-CampusTransitHub.exe
+CampusTransmitHub.exe
 ```
 
 ## 🚀 Future Scope
