@@ -52,21 +52,29 @@ bool registerStudent(string id, string name, string password);
 
 
 ## Bus Module
+
 ### Bus
 
 Responsible for storing basic information about a bus.
 
 Attributes:
+
 - busId
 - busNumber
 - capacity
 - availability
+- status
+
 Main functions:
+
 - getBusId()
 - getBusNumber()
 - getCapacity()
 - isAvailable()
 - setAvailability()
+- getStatus()
+- setStatus()
+- displayStatus()
 - displayBus()
 
 ### Route
@@ -74,40 +82,48 @@ Main functions:
 Responsible for storing route information.
 
 Attributes:
+
 - routeId
 - routeName
 - stops
+
 Main functions:
+
 - getRouteId()
 - getRouteName()
 - getStops()
 - displayRoute()
+
 ### Schedule
 
 Responsible for storing bus schedule information.
 
 Attributes:
+
 - scheduleId
 - busId
 - routeId
 - departureTime
+
 Main functions:
+
 - getScheduleId()
 - getBusId()
 - getRouteId()
 - getDepartureTime()
 - displaySchedule()
 
-## Bus Module Operations
+### Bus Module Operations
 
 The Bus Module will provide:
+
 - Bus search
 - Route search
 - Schedule viewing
 - Bus sorting
 - Availability checking
-
-
+- Bus status checking
+- Bus status updating
 
 
 ## File Handling Module
