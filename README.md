@@ -1,4 +1,4 @@
-# 🚍 Campus Transmit Hub
+# 🚍 Campus Transit Hub
 
 **Campus Transit Hub – Smart Bus Information & Route Management System**
 
@@ -31,10 +31,10 @@ A **console-based C++17 application** designed to centralize campus transportati
 
 | Member       | Responsibility                                                     |
 | ------------ | ------------------------------------------------------------------ |
+| **Deeya**    | Core Architecture, Main Menu, Integration, Testing & Documentation |
 | **Kavya**    | Authentication, User Management & Notifications                    |
 | **Yashasvi** | Bus & Route Management                                             |
 | **Tanuja**   | File Handling & Reports                                            |
-| **Deeya**    | Core Architecture, Main Menu, Integration, Testing & Documentation |
 
 ## 🛠️ Technology
 
@@ -47,7 +47,7 @@ A **console-based C++17 application** designed to centralize campus transportati
 
 ## 📂 Project Structure
 
-```text id="w2w8u4"
+```text
 CampusTransitHub/
 │
 ├── docs/          # Project documentation
@@ -65,7 +65,7 @@ CampusTransitHub/
 
 ## 🏛️ Main Classes
 
-```text id="1j3m4d"
+```text
 User
 ├── Student
 ├── Driver
@@ -80,13 +80,11 @@ FileManager
 TransitSystem
 ```
 
-The project uses **encapsulation, inheritance, polymorphism, constructors, function overloading/overriding, STL, file handling, and exception handling** where appropriate.
+The project demonstrates **OOP concepts, STL, file handling, exception handling, searching, sorting, validation, and modular programming** where appropriate.
 
 ## 💾 Data Files
 
-The application stores information using text files:
-
-```text id="m8y3v5"
+```text
 students.txt
 drivers.txt
 admins.txt
@@ -99,14 +97,14 @@ reports.txt
 
 ## 🔀 Git Workflow
 
-Each team member works on their assigned feature branch.
+Each team member works on an assigned feature branch.
 
-```text id="k4p0dx"
+```text
 main
+├── feature/core-architecture
 ├── feature/authentication-notifications
 ├── feature/bus-route
-├── feature/file-report
-└── feature/core-architecture
+└── feature/file-report
 ```
 
 No direct commits are made to `main`. Completed features are tested and merged through Pull Requests.
@@ -115,27 +113,27 @@ No direct commits are made to `main`. Completed features are tested and merged t
 
 Clone the repository:
 
-```bash id="1w9h5m"
+```bash
 git clone <repository-url>
-cd CampusTransmitHub
+cd CampusTransitHub
 ```
 
 Compile:
 
-```bash id="7y4q9p"
+```bash
 g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransitHub
 ```
 
 Run:
 
-```bash id="g8x4n2"
-./CampusTransmitHub
+```bash
+./CampusTransitHub
 ```
 
 On Windows:
 
-```bash id="j2q7mw"
-CampusTransmitHub.exe
+```bash
+CampusTransitHub.exe
 ```
 
 ## 🚀 Future Scope
