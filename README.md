@@ -1,4 +1,4 @@
-# 🚍 Campus Transit Hub
+# 🚍 Campus Transmit Hub
 
 **Campus Transit Hub – Smart Bus Information & Route Management System**
 
