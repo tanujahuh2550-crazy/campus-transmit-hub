@@ -1,418 +1,156 @@
-# campus-transmit-hub
-
-# PROJECT_GUIDE.md
-
 # 🚍 Campus Transit Hub
-
-**Version:** 1.0
-**Project Type:** Object-Oriented Programming (C++) Mini Application
-**Team Size:** 4 Members
-
----
-
-# 📌 Project Overview
-
-## Project Title
 
 **Campus Transit Hub – Smart Bus Information & Route Management System**
 
-## Problem Statement
+A **console-based C++17 application** designed to centralize campus transportation information. Students can search and view buses, routes, schedules, and notifications, while authorized staff and drivers can manage transport information.
 
-Students often face confusion regarding college bus schedules, half-day buses, cancelled buses, route modifications, and transport notices. Currently, this information is shared informally through WhatsApp groups, drivers, or friends, making it unreliable and time-consuming.
+## 🎯 Objectives
 
-Campus Transit Hub provides a centralized platform where transport administrators and drivers can update transport information, allowing students to access the latest bus schedules and notifications.
+* Centralize campus transport information
+* Reduce confusion about bus schedules and availability
+* Allow staff and drivers to update transport information
+* Allow students to search buses and routes
+* Store transport information using file handling
+* Demonstrate C++ OOP concepts
 
----
+## ✨ Features
 
-# 🎯 Objectives
+* 🔐 User registration and login
+* 🚌 Bus management
+* 🛣️ Route and stop management
+* 🕐 Bus schedules
+* 👨‍✈️ Driver dashboard
+* 📢 Transport notifications
+* 📊 Daily, weekly, and monthly reports
+* 🔎 Bus and route search
+* ↕️ Sorting and availability checking
+* 💾 File-based data storage
+* ✅ Input validation and exception handling
 
-* Centralize campus transport information.
-* Reduce confusion regarding bus availability.
-* Allow transport staff to update bus status.
-* Allow students to search buses and routes.
-* Store transport information using file handling.
-* Demonstrate OOP concepts in C++.
+## 👥 Team
 
----
+| Member       | Responsibility                                                     |
+| ------------ | ------------------------------------------------------------------ |
+| **Kavya**    | Authentication, User Management & Notifications                    |
+| **Yashasvi** | Bus & Route Management                                             |
+| **Tanuja**   | File Handling & Reports                                            |
+| **Deeya**    | Core Architecture, Main Menu, Integration, Testing & Documentation |
 
-# 👥 Team Members
+## 🛠️ Technology
 
-| Member   | Module                                               |
-| -------- | ---------------------------------------------------- |
-| Kavya    | Authentication & User Management                     |
-| Yashasvi | Bus & Route Management                               |
-| Tanuja   | File Handling, Notifications & Reports  , Main Menu  |
-| Deeya    | Core Architecture, Integration, Testing & Documentation |
+* **Language:** C++17
+* **Application:** Console-based
+* **Compiler:** g++
+* **IDE:** Visual Studio Code
+* **Storage:** Text Files (`.txt`)
+* **Version Control:** Git & GitHub
 
----
+## 📂 Project Structure
 
-# 🛠 Technology Stack
-
-* Language: C++17
-* IDE: Visual Studio Code
-* Compiler: g++
-* Version Control: Git & GitHub
-* Storage: Text Files (.txt)
-* Type: Console Application
-
----
-
-# 📂 Proposed Folder Structure
-
-```text
+```text id="w2w8u4"
 CampusTransitHub/
-
 │
-├── docs/
-│   ├── Proposal.md
-│   ├── SRS.md
-│   ├── PPT/
-│   ├── UML/
-│   └── FinalReport/
-│
-├── include/
-│
-├── src/
-│
-├── data/
-│
-├── diagrams/
-│
-├── screenshots/
-│
-├── test/
-│
-├── assets/
+├── docs/          # Project documentation
+├── include/       # Header files
+├── src/           # Source files
+├── data/          # Text-based data storage
+├── diagrams/      # UML and flowcharts
+├── screenshots/   # Project screenshots
+├── test/          # Testing files
+├── assets/        # Supporting files
 │
 ├── README.md
-│
 └── PROJECT_GUIDE.md
 ```
 
----
+## 🏛️ Main Classes
 
-# 🏛 Coding Standards
+```text id="1j3m4d"
+User
+├── Student
+├── Driver
+└── Admin
 
-## Naming Convention
-
-### Classes
-
-Use PascalCase
-
-Example
-
-```cpp
-class Bus
-class Student
-class Driver
+Bus
+Route
+Schedule
+Notification
+Report
+FileManager
+TransitSystem
 ```
 
-### Variables
+The project uses **encapsulation, inheritance, polymorphism, constructors, function overloading/overriding, STL, file handling, and exception handling** where appropriate.
 
-Use camelCase
+## 💾 Data Files
 
-```cpp
-busNumber
-driverName
-routeName
-```
+The application stores information using text files:
 
-### Functions
-
-Use camelCase
-
-```cpp
-displayBus()
-
-searchRoute()
-
-updateStatus()
-```
-
-### Constants
-
-```cpp
-MAX_BUSES
-```
-
----
-
-# 📁 File Naming
-
-Header
-
-```text
-Bus.h
-```
-
-Source
-
-```text
-Bus.cpp
-```
-
-Never
-
-```text
-buscode.cpp
-
-newBus.cpp
-
-busFinal.cpp
-```
-
----
-
-# 💬 Comment Style
-
-Every function should have a short description.
-
-Example
-
-```cpp
-// Displays all available buses.
-```
-
----
-
-# 📦 OOP Concepts to Demonstrate
-
-* Classes & Objects
-* Constructors
-* Copy Constructor
-* Destructor
-* Inheritance
-* Polymorphism
-* Function Overloading
-* Function Overriding
-* Virtual Functions
-* Friend Function (where meaningful)
-* Operator Overloading
-* File Handling
-* Exception Handling
-* STL
-* Function Templates
-
----
-
-# 📂 Project Modules
-
-## Authentication
-
-* Login
-* Logout
-* Change Password
-* User Validation
-
----
-
-## Bus Module
-
-* Add Bus
-* Delete Bus
-* Update Bus
-* Search Bus
-* View Bus Details
-
----
-
-## Route Module
-
-* Add Route
-* Update Route
-* Search Route
-* Display Stops
-
----
-
-## Driver Dashboard
-
-* View Assigned Bus
-* Update Bus Status
-* Update Route Changes
-
----
-
-## Notification Module
-
-* Create Notification
-* Display Notifications
-* Delete Notification
-
----
-
-## Report Module
-
-* Daily Report
-* Weekly Report
-* Monthly Report
-
----
-
-## File Handling
-
-* Save Data
-* Load Data
-* Update Records
-* Delete Records
-
----
-
-# 📄 Data Files
-
-```text
+```text id="m8y3v5"
 students.txt
-
 drivers.txt
-
 admins.txt
-
 buses.txt
-
 routes.txt
-
+schedules.txt
 notifications.txt
-
 reports.txt
 ```
 
----
+## 🔀 Git Workflow
 
-# 🔀 Git Workflow
+Each team member works on their assigned feature branch.
 
-## Branches
-
-```text
+```text id="k4p0dx"
 main
-
-authentication
-
-bus-module
-
-driver-module
-
-integration
+├── feature/authentication-notifications
+├── feature/bus-route
+├── feature/file-report
+└── feature/core-architecture
 ```
 
-Each member works only on their assigned branch.
+No direct commits are made to `main`. Completed features are tested and merged through Pull Requests.
 
-No direct commits to `main`.
+## ▶️ How to Run
 
----
+Clone the repository:
 
-# ✅ Commit Message Format
-
-Examples
-
-```text
-feat: added bus search
-
-fix: corrected login validation
-
-docs: updated proposal
-
-refactor: improved route class
+```bash id="1w9h5m"
+git clone <repository-url>
+cd CampusTransitHub
 ```
 
----
+Compile:
 
-# 🤖 AI Usage Guidelines
+```bash id="7y4q9p"
+g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransitHub
+```
 
-Before asking any AI for code, include:
+Run:
 
-* Project Overview
-* Module Name
-* Existing Class Names
-* Coding Standards
-* C++17
-* Console Application
-* No Global Variables
-* Modular Code
-* Header and Source Files
-* Use STL where appropriate
+```bash id="g8x4n2"
+./CampusTransitHub
+```
 
-Never ask AI to generate the entire project in one prompt.
+On Windows:
 
-Generate one class or one feature at a time.
+```bash id="j2q7mw"
+CampusTransitHub.exe
+```
 
----
+## 🚀 Future Scope
 
-# 📋 Development Workflow
-
-1. Finalize documentation.
-2. Design class architecture.
-3. Create UML diagrams.
-4. Create GitHub repository.
-5. Create folder structure.
-6. Create empty header and source files.
-7. Develop modules independently.
-8. Integrate modules.
-9. Test.
-10. Fix bugs.
-11. Prepare presentation.
-12. Final demonstration.
-
----
-
-# 🧪 Testing Checklist
-
-* Login
-* Bus Search
-* Route Search
-* Driver Dashboard
-* Notifications
-* Reports
-* File Saving
-* File Loading
-* Exception Handling
-
----
-
-# 📊 Documentation Checklist
-
-* Problem Statement
-* Objectives
-* Existing System
-* Proposed System
-* Features
-* Scope
-* Future Scope
-* UML Diagrams
-* Flowchart
-* Screenshots
-* Test Cases
-* Conclusion
-
----
-
-# 🚀 Future Scope
-
-* GPS Tracking
-* Mobile Application
-* QR Bus Pass
-* Push Notifications
-* Google Maps Integration
+* GPS-based bus tracking
+* Mobile application
+* QR bus passes
+* Push notifications
+* Google Maps integration
 * Live ETA
-* RFID Attendance
-* Analytics Dashboard
+* RFID attendance
+* Transport analytics
 
----
+## 📌 Project Status
 
-# 📜 Team Rules
+**Currently under development.**
 
-1. Work only on your assigned module.
-2. Push code frequently.
-3. Pull latest changes before coding.
-4. Follow coding standards.
-5. Do not rename shared classes/functions without discussion.
-6. Test your module before pushing.
-7. Document every major feature.
-8. Ask before changing another member's code.
-
----
-
-# 🎯 Goal
-
-Build a clean, modular, scalable C++ application that demonstrates object-oriented programming concepts while solving a real campus transportation problem.
-
-> **"Code like a team. Think like engineers. Build like it's a real product."**
+> **Code like a team. Think like engineers. Build like it's a real product.**
