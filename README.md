@@ -31,8 +31,8 @@ A **console-based C++17 application** designed to centralize campus transportati
 
 | Member       | Responsibility                                                     |
 | ------------ | ------------------------------------------------------------------ |
-| **Deeya**    | Core Architecture, Main Menu, Integration, Testing & Documentation |
-| **Kavya**    | Authentication, User Management & Notifications                    |
+| **Deeya**    | Core Architecture, Integration, Testing & Documentation |
+| **Kavya**    | Authentication, Main Menu User Management & Notifications                    |
 | **Yashasvi** | Bus & Route Management                                             |
 | **Tanuja**   | File Handling & Reports                                            |
 
