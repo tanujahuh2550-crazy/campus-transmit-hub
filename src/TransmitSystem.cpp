@@ -9,8 +9,8 @@ void TransmitSystem::run()
 
     do
     {
-        displayMainMenu();
-        cin >> choice;
+        mainMenu.display();
+        choice = mainMenu.getChoice();
 
         switch(choice)
         {
@@ -35,19 +35,6 @@ void TransmitSystem::run()
         }
 
     } while(choice != 4);
-}
-
-void TransmitSystem::displayMainMenu()
-{
-    cout << "\n========================================\n";
-    cout << "          CAMPUS TRANSMIT HUB\n";
-    cout << "========================================\n";
-    cout << "1. Student\n";
-    cout << "2. Driver\n";
-    cout << "3. Admin\n";
-    cout << "4. Exit\n";
-    cout << "========================================\n";
-    cout << "Enter your choice: ";
 }
 
 void TransmitSystem::studentSection()

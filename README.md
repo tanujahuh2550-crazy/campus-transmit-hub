@@ -2,66 +2,20 @@
 
 **Campus Transmit Hub – Smart Bus Information & Route Management System**
 
-A **console-based C++17 application** designed to centralize campus transportation information. Students can search and view buses, routes, schedules, and notifications, while authorized staff and drivers can manage transport information.
-
-## 🎯 Objectives
-
-* Centralize campus transport information
-* Reduce confusion about bus schedules and availability
-* Allow staff and drivers to update transport information
-* Allow students to search buses and routes
-* Store transport information using file handling
-* Demonstrate C++ OOP concepts
+A **console-based C++17 application** for managing campus transportation. Students can view buses, routes, schedules, and notifications, while authorized staff can manage transport information.
 
 ## ✨ Features
 
 * 🔐 User registration and login
-* 🚌 Bus management
-* 🛣️ Route and stop management
-* 🕐 Bus schedules
+* 🚌 Bus and route management
+* 🕐 Schedule management
 * 👨‍✈️ Driver dashboard
 * 📢 Transport notifications
-* 📊 Daily, weekly, and monthly reports
 * 🔎 Bus and route search
 * ↕️ Sorting and availability checking
+* 📊 Transport reports
 * 💾 File-based data storage
 * ✅ Input validation and exception handling
-
-## 👥 Team
-
-| Member       | Responsibility                                                     |
-| ------------ | ------------------------------------------------------------------ |
-| **Deeya**    | Core Architecture, Main Menu, Integration, Testing & Documentation |
-| **Kavya**    | Authentication, User Management & Notifications                    |
-| **Yashasvi** | Bus & Route Management                                             |
-| **Tanuja**   | File Handling & Reports                                            |
-
-## 🛠️ Technology
-
-* **Language:** C++17
-* **Application:** Console-based
-* **Compiler:** g++
-* **IDE:** Visual Studio Code
-* **Storage:** Text Files (`.txt`)
-* **Version Control:** Git & GitHub
-
-## 📂 Project Structure
-
-```text
-CampusTransmitHub/
-│
-├── docs/          # Project documentation
-├── include/       # Header files
-├── src/           # Source files
-├── data/          # Text-based data storage
-├── diagrams/      # UML and flowcharts
-├── screenshots/   # Project screenshots
-├── test/          # Testing files
-├── assets/        # Supporting files
-│
-├── README.md
-└── PROJECT_GUIDE.md
-```
 
 ## 🏛️ Main Classes
 
@@ -77,27 +31,47 @@ Schedule
 Notification
 Report
 FileManager
-TransitSystem
+TransmitSystem
 ```
 
-The project demonstrates **OOP concepts, STL, file handling, exception handling, searching, sorting, validation, and modular programming** where appropriate.
+The project demonstrates **OOP, STL, inheritance, file handling, searching, sorting, validation, and modular programming**.
 
-## 💾 Data Files
+## 📂 Project Structure
 
 ```text
-students.txt
-drivers.txt
-admins.txt
-buses.txt
-routes.txt
-schedules.txt
-notifications.txt
-reports.txt
+CampusTransmitHub/
+├── docs/
+├── include/
+├── src/
+├── data/
+├── diagrams/
+├── screenshots/
+├── test/
+├── assets/
+├── README.md
+└── PROJECT_GUIDE.md
 ```
+
+## 👥 Team
+
+| Member       | Responsibility                                          |
+| ------------ | ------------------------------------------------------- |
+| **Deeya**    | Core Architecture, Integration, Testing & Documentation |
+| **Kavya**    | Authentication, User Management & Notifications         |
+| **Yashasvi** | Bus & Route Management                                  |
+| **Tanuja**   | File Handling & Reports                                 |
+
+## 🛠️ Tech Stack
+
+* **C++17**
+* **g++**
+* **Visual Studio Code**
+* **Git & GitHub**
+* **Text files for storage**
 
 ## 🔀 Git Workflow
 
-Each team member works on an assigned feature branch.
+Each feature is developed on a separate branch and merged into `main` through a Pull Request after testing.
 
 ```text
 main
@@ -107,30 +81,16 @@ main
 └── feature/file-report
 ```
 
-No direct commits are made to `main`. Completed features are tested and merged through Pull Requests.
-
 ## ▶️ How to Run
-
-Clone the repository:
 
 ```bash
 git clone <repository-url>
 cd CampusTransmitHub
-```
-
-Compile:
-
-```bash
 g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransmitHub
-```
-
-Run:
-
-```bash
 ./CampusTransmitHub
 ```
 
-On Windows:
+**Windows:**
 
 ```bash
 CampusTransmitHub.exe
@@ -138,17 +98,8 @@ CampusTransmitHub.exe
 
 ## 🚀 Future Scope
 
-* GPS-based bus tracking
+* GPS-based tracking
 * Mobile application
 * QR bus passes
-* Push notifications
-* Google Maps integration
 * Live ETA
-* RFID attendance
 * Transport analytics
-
-## 📌 Project Status
-
-**Currently under development.**
-
-> **Code like a team. Think like engineers. Build like it's a real product.**
