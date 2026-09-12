@@ -15,8 +15,15 @@
 
 using namespace std;
 
-class FileManager {
+class FileManager
+{
 public:
+    // General file handling
+    bool writeData(const string& filename, const vector<string>& data);
+    bool appendData(const string& filename, const string& data);
+    vector<string> readData(const string& filename);
+    bool fileExists(const string& filename);
+
     // Student
     vector<Student> readStudents() const;
     void writeStudent(const Student& student) const;
