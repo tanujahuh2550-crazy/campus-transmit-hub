@@ -1,27 +1,48 @@
-#ifndef STUDENT_H
-#define STUDENT_H
+#include "include/Student.h"
+#include <iostream>
 
-#include "Person.h"
-#include <string>
 using namespace std;
 
-class Student : public Person {
-private:
-    string course;
-    int semester;
+Student::Student()
+    : Person()
+{
+    course = "";
+    semester = 0;
+}
 
-public:
-    Student();
-    Student(string id, string name, string password,
-            string course, int semester);
+Student::Student(string id, string name, string password,
+                 string course, int semester)
+    : Person(id, name, password)
+{
+    this->course = course;
+    this->semester = semester;
+}
 
-    string getCourse() const;
-    int getSemester() const;
+string Student::getCourse() const
+{
+    return course;
+}
 
-    void setCourse(string course);
-    void setSemester(int semester);
+int Student::getSemester() const
+{
+    return semester;
+}
 
-    void displayInfo() const override;
-};
+void Student::setCourse(string course)
+{
+    this->course = course;
+}
 
-#endif
+void Student::setSemester(int semester)
+{
+    this->semester = semester;
+}
+
+void Student::displayInfo() const
+{
+    cout << "\n----- Student Information -----" << endl;
+    cout << "ID: " << getId() << endl;
+    cout << "Name: " << getName() << endl;
+    cout << "Course: " << course << endl;
+    cout << "Semester: " << semester << endl;
+}
