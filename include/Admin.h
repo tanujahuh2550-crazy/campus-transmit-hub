@@ -9,6 +9,11 @@ public:
     Admin();
     Admin(string id, string name, string password);
 
+    void addBus();
+    void removeBus();
+    void updateBus();
+    void viewAllBuses();
+
     void displayInfo() const override;
 };
 
