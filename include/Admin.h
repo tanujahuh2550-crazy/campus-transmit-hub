@@ -2,12 +2,18 @@
 #define ADMIN_H
 
 #include "Person.h"
+#include <string>
 using namespace std;
 
-class Admin : public Person {
+class Admin : public Person
+{
+private:
+    string adminId;
+
 public:
     Admin();
-    Admin(string id, string name, string password);
+
+    Admin(string id, string name, string password, string adminId);
 
     void displayInfo() const override;
 };

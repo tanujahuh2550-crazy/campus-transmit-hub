@@ -7,20 +7,12 @@ using namespace std;
 
 class Driver : public Person {
 private:
-    string licenseNumber;
-    string assignedBusId;
+    string license;
+    string busId;
 
 public:
     Driver();
-    Driver(string id, string name, string password,
-           string licenseNumber, string assignedBusId);
-
-    string getLicenseNumber() const;
-    string getAssignedBusId() const;
-
-    void setLicenseNumber(string licenseNumber);
-    void setAssignedBusId(string assignedBusId);
-
+    Driver(string id, string name, string password, string license, string busId);
     void displayInfo() const override;
 };
 
