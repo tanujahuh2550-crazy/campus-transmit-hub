@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/TransmitSystem.h"
+#include "../include/FileManager.h"
 
 using namespace std;
 
@@ -40,6 +41,7 @@ void TransmitSystem::run()
 void TransmitSystem::studentSection()
 {
     int choice;
+    FileManager fileManager;
 
     do
     {
@@ -51,27 +53,71 @@ void TransmitSystem::studentSection()
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch(choice)
+        if(choice == 1)
         {
-            case 1:
-                cout << "\nStudent Login selected.\n";
-                break;
+            string id, password;
 
-            case 2:
-                cout << "\nStudent Registration selected.\n";
-                break;
+            cout << "Enter Student ID: ";
+            cin >> id;
 
-            case 3:
-                cout << "\nReturning to Main Menu...\n";
-                break;
+            cout << "Enter Password: ";
+            cin >> password;
 
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
+            vector<Student> students = fileManager.readStudents();
+            bool found = false;
+
+            for(const Student& student : students)
+            {
+                if(student.getId() == id &&
+                   student.getPassword() == password)
+                {
+                    cout << "\nLogin successful! Welcome, "
+                         << student.getName() << "!\n";
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found)
+                cout << "\nInvalid ID or password.\n";
+        }
+        else if(choice == 2)
+        {
+            string id, name, password, course;
+            int semester;
+
+            cout << "Enter Student ID: ";
+            cin >> id;
+
+            cout << "Enter Name: ";
+            cin.ignore();
+            getline(cin, name);
+
+            cout << "Create Password: ";
+            cin >> password;
+
+            cout << "Enter Course: ";
+            cin >> course;
+
+            cout << "Enter Semester: ";
+            cin >> semester;
+
+            Student student(id, name, password, course, semester);
+            fileManager.writeStudent(student);
+
+            cout << "\nRegistration successful!\n";
+        }
+        else if(choice == 3)
+        {
+            cout << "\nReturning to Main Menu...\n";
+        }
+        else
+        {
+            cout << "\nInvalid choice. Please try again.\n";
         }
 
     } while(choice != 3);
 }
-
 
 void TransmitSystem::driverSection()
 {
@@ -102,7 +148,6 @@ void TransmitSystem::driverSection()
 
     } while(choice != 2);
 }
-
 
 void TransmitSystem::adminSection()
 {
