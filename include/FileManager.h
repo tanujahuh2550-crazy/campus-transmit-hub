@@ -13,47 +13,50 @@
 #include "Notification.h"
 #include "Report.h"
 
-using namespace std;
-
 class FileManager
 {
 public:
     // General file handling
-    bool writeData(const string& filename, const vector<string>& data);
-    bool appendData(const string& filename, const string& data);
-    vector<string> readData(const string& filename);
-    bool fileExists(const string& filename);
+    bool writeData(const std::string& filename,
+                   const std::vector<std::string>& data);
+
+    bool appendData(const std::string& filename,
+                    const std::string& data);
+
+    std::vector<std::string> readData(const std::string& filename);
+
+    bool fileExists(const std::string& filename);
 
     // Student
-    vector<Student> readStudents() const;
+    std::vector<Student> readStudents() const;
     void writeStudent(const Student& student) const;
 
     // Driver
-    vector<Driver> readDrivers() const;
+    std::vector<Driver> readDrivers() const;
     void writeDriver(const Driver& driver) const;
 
     // Admin
-    vector<Admin> readAdmins() const;
+    std::vector<Admin> readAdmins() const;
     void writeAdmin(const Admin& admin) const;
 
     // Bus
-    vector<Bus> readBuses() const;
+    std::vector<Bus> readBuses() const;
     void writeBus(const Bus& bus) const;
 
     // Route
-    vector<Route> readRoutes() const;
+    std::vector<Route> readRoutes() const;
     void writeRoute(const Route& route) const;
 
     // Schedule
-    vector<Schedule> readSchedules() const;
+    std::vector<Schedule> readSchedules() const;
     void writeSchedule(const Schedule& schedule) const;
 
     // Notification
-    vector<Notification> readNotifications() const;
+    std::vector<Notification> readNotifications() const;
     void writeNotification(const Notification& notification) const;
 
     // Report
-    vector<Report> readReports() const;
+    std::vector<Report> readReports() const;
     void writeReport(const Report& report) const;
 };
 
