@@ -12,7 +12,12 @@ private:
 
 public:
     Driver();
-    Driver(string id, string name, string password, string license, string busId);
+    Driver(string id, string name, string password,
+           string license, string busId);
+
+    string getLicenseNumber() const;
+    string getAssignedBusId() const;
+
     void displayInfo() const override;
 };
 
