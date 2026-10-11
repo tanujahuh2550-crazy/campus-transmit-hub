@@ -1,50 +1,61 @@
 #include "../include/Report.h"
-
+#include "../include/FileManager.h"
 #include <iostream>
 #include <ctime>
-
 using namespace std;
 
-void Report::generateDailyReport()
-{
-    string report = "Daily Report | Generated successfully";
+Report::Report()
+    : reportId(""), reportType(""),
+      generatedDate(""), content("") {}
 
-    if (fileManager.appendData("data/reports.txt", report))
-    {
-        cout << "\nDaily report generated successfully.\n";
-    }
-    else
-    {
-        cout << "\nFailed to generate daily report.\n";
-    }
+Report::Report(string reportId, string reportType,
+               string generatedDate, string content)
+    : reportId(reportId), reportType(reportType),
+      generatedDate(generatedDate), content(content) {}
+
+string Report::getReportId() const {
+    return reportId;
 }
 
-
-void Report::generateWeeklyReport()
-{
-    string report = "Weekly Report | Generated successfully";
-
-    if (fileManager.appendData("data/reports.txt", report))
-    {
-        cout << "\nWeekly report generated successfully.\n";
-    }
-    else
-    {
-        cout << "\nFailed to generate weekly report.\n";
-    }
+string Report::getReportType() const {
+    return reportType;
 }
 
+string Report::getGeneratedDate() const {
+    return generatedDate;
+}
 
-void Report::generateMonthlyReport()
-{
-    string report = "Monthly Report | Generated successfully";
+string Report::getContent() const {
+    return content;
+}
 
-    if (fileManager.appendData("data/reports.txt", report))
-    {
-        cout << "\nMonthly report generated successfully.\n";
-    }
-    else
-    {
-        cout << "\nFailed to generate monthly report.\n";
-    }
+void Report::setReportType(string reportType) {
+    this->reportType = reportType;
+}
+
+void Report::setGeneratedDate(string generatedDate) {
+    this->generatedDate = generatedDate;
+}
+
+void Report::setContent(string content) {
+    this->content = content;
+}
+
+void Report::displayReport() const {
+    cout << "\nReport ID: " << reportId
+         << "\nReport Type: " << reportType
+         << "\nGenerated Date: " << generatedDate
+         << "\nContent: " << content << endl;
+}
+
+void Report::generateDailyReport() {
+    cout << "\nDaily report generated successfully.\n";
+}
+
+void Report::generateWeeklyReport() {
+    cout << "\nWeekly report generated successfully.\n";
+}
+
+void Report::generateMonthlyReport() {
+    cout << "\nMonthly report generated successfully.\n";
 }
