@@ -18,14 +18,15 @@ class FileManager
 public:
     // General file handling
     bool writeData(const std::string& filename,
-                   const std::vector<std::string>& data);
+                   const std::vector<std::string>& data) const;
 
     bool appendData(const std::string& filename,
-                    const std::string& data);
+                    const std::string& data) const;
 
-    std::vector<std::string> readData(const std::string& filename);
+    std::vector<std::string> readData(
+        const std::string& filename) const;
 
-    bool fileExists(const std::string& filename);
+    bool fileExists(const std::string& filename) const;
 
     // Student
     std::vector<Student> readStudents() const;
