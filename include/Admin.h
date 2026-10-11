@@ -5,15 +5,15 @@
 #include <string>
 using namespace std;
 
-class Admin : public Person
-{
+class Admin : public Person {
 private:
     string adminId;
 
 public:
     Admin();
-
     Admin(string id, string name, string password, string adminId);
+
+    string getAdminId() const;
 
     void displayInfo() const override;
 };
