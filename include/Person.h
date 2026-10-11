@@ -13,7 +13,17 @@ protected:
 public:
     Person();
     Person(string id, string name, string password);
+
+    string getId() const;
+    string getName() const;
+    string getPassword() const;
+
+    void setName(string name);
+    void setPassword(string password);
+
     virtual void displayInfo() const;
+
+    virtual ~Person() = default;
 };
 
 #endif
