@@ -3,59 +3,59 @@
 #include <fstream>
 #include <iostream>
 
-using namespace std;
-
-bool FileManager::writeData(const string& filename, const vector<string>& data)
+bool FileManager::writeData(const std::string& filename,
+                            const std::vector<std::string>& data)
 {
-    ofstream file(filename);
+    std::ofstream file(filename);
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for writing: " << filename << endl;
+        std::cerr << "Error: Unable to open file for writing: "
+                  << filename << std::endl;
         return false;
     }
 
-    for (const string& line : data)
+    for (const std::string& line : data)
     {
-        file << line << endl;
+        file << line << std::endl;
     }
 
-    file.close();
-    return true;
+    return file.good();
 }
 
-
-bool FileManager::appendData(const string& filename, const string& data)
+bool FileManager::appendData(const std::string& filename,
+                             const std::string& data)
 {
-    ofstream file(filename, ios::app);
+    std::ofstream file(filename, std::ios::app);
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for appending: " << filename << endl;
+        std::cerr << "Error: Unable to open file for appending: "
+                  << filename << std::endl;
         return false;
     }
 
-    file << data << endl;
+    file << data << std::endl;
 
-    file.close();
-    return true;
+    return file.good();
 }
 
-
-vector<string> FileManager::readData(const string& filename)
+std::vector<std::string> FileManager::readData(
+    const std::string& filename)
 {
-    vector<string> data;
-    ifstream file(filename);
+    std::vector<std::string> data;
+    std::ifstream file(filename);
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for reading: " << filename << endl;
+        std::cerr << "Error: Unable to open file for reading: "
+                  << filename << std::endl;
         return data;
     }
 
-    string line;
+    std::string line;
 
-    while (getline(file, line))
+    while (std::getline(file, line))
     {
         if (!line.empty())
         {
@@ -63,15 +63,11 @@ vector<string> FileManager::readData(const string& filename)
         }
     }
 
-    file.close();
-
     return data;
 }
 
-
-bool FileManager::fileExists(const string& filename)
+bool FileManager::fileExists(const std::string& filename)
 {
-    ifstream file(filename);
-
+    std::ifstream file(filename);
     return file.good();
 }
