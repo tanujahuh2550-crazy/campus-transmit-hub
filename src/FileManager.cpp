@@ -223,7 +223,7 @@ vector<Admin> FileManager::readAdmins() const
     {
         vector<string> fields = splitString(record, '|');
 
-        if (fields.size() != 3)
+        if (fields.size() != 4)
         {
             cerr << "Invalid admin record: " << record << endl;
             continue;
@@ -232,7 +232,8 @@ vector<Admin> FileManager::readAdmins() const
         Admin admin(
             fields[0],
             fields[1],
-            fields[2]
+            fields[2],
+            fields[3]
         );
 
         admins.push_back(admin);
@@ -246,7 +247,8 @@ void FileManager::writeAdmin(const Admin& admin) const
     string record =
         admin.getId() + "|" +
         admin.getName() + "|" +
-        admin.getPassword();
+        admin.getPassword() + "|" +
+        admin.getAdminId();
 
     appendData("data/admins.txt", record);
 }
