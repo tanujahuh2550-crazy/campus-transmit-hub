@@ -1,11 +1,14 @@
 #include "../include/Admin.h"
 #include <iostream>
+using namespace std;
 
-Admin::Admin() {}
+Admin::Admin() : Person(), adminId("") {}
 
 Admin::Admin(string id, string name, string password, string adminId)
-    : Person(id, name, password) {
-    this->adminId = adminId;
+    : Person(id, name, password), adminId(adminId) {}
+
+string Admin::getAdminId() const {
+    return adminId;
 }
 
 void Admin::displayInfo() const {
