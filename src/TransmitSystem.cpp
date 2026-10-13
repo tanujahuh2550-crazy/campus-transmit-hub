@@ -563,7 +563,138 @@ void TransmitSystem::routeManagement()
 
 void TransmitSystem::scheduleManagement()
 {
-    cout << "\nSchedule Management is coming next.\n";
+    int choice;
+
+    do
+    {
+        cout << "\n========== SCHEDULE MANAGEMENT ==========\n";
+        cout << "1. Add Schedule\n";
+        cout << "2. View Schedules\n";
+        cout << "3. Back to Admin Dashboard\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            string scheduleId, busId, routeId, departureTime;
+
+            cout << "\nEnter Schedule ID: ";
+            cin >> scheduleId;
+
+            vector<Schedule> schedules = fileManager.readSchedules();
+
+            bool exists = false;
+
+            for (int i = 0; i < schedules.size(); i++)
+            {
+                if (schedules[i].getScheduleId() == scheduleId)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists)
+            {
+                cout << "Schedule ID already exists!\n";
+                continue;
+            }
+
+            cout << "Enter Bus ID: ";
+            cin >> busId;
+
+            vector<Bus> buses = fileManager.readBuses();
+            bool busExists = false;
+
+            for (int i = 0; i < buses.size(); i++)
+            {
+                if (buses[i].getBusId() == busId)
+                {
+                    busExists = true;
+                    break;
+                }
+            }
+
+            if (!busExists)
+            {
+                cout << "Bus ID not found! Add the bus first.\n";
+                continue;
+            }
+
+            cout << "Enter Route ID: ";
+            cin >> routeId;
+
+            vector<Route> routes = fileManager.readRoutes();
+            bool routeExists = false;
+
+            for (int i = 0; i < routes.size(); i++)
+            {
+                if (routes[i].getRouteId() == routeId)
+                {
+                    routeExists = true;
+                    break;
+                }
+            }
+
+            if (!routeExists)
+            {
+                cout << "Route ID not found! Add the route first.\n";
+                continue;
+            }
+
+            cout << "Enter Departure Time (e.g. 08:30 AM): ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, departureTime);
+
+            Schedule schedule(
+                scheduleId,
+                busId,
+                routeId,
+                departureTime
+            );
+
+            fileManager.writeSchedule(schedule);
+
+            cout << "\nSchedule added successfully!\n";
+        }
+        else if (choice == 2)
+        {
+            vector<Schedule> schedules = fileManager.readSchedules();
+
+            if (schedules.empty())
+            {
+                cout << "\nNo schedules found.\n";
+            }
+            else
+            {
+                cout << "\n========== SAVED SCHEDULES ==========\n";
+
+                for (int i = 0; i < schedules.size(); i++)
+                {
+                    cout << "\nSchedule ID: "
+                         << schedules[i].getScheduleId() << endl;
+
+                    cout << "Bus ID: "
+                         << schedules[i].getBusId() << endl;
+
+                    cout << "Route ID: "
+                         << schedules[i].getRouteId() << endl;
+
+                    cout << "Departure Time: "
+                         << schedules[i].getDepartureTime() << endl;
+                }
+            }
+        }
+        else if (choice == 3)
+        {
+            cout << "Returning to Admin Dashboard...\n";
+        }
+        else
+        {
+            cout << "Invalid choice! Try again.\n";
+        }
+
+    } while (choice != 3);
 }
 
 void TransmitSystem::notificationManagement()
