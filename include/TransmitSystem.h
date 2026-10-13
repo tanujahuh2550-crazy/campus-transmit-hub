@@ -3,6 +3,8 @@
 
 #include "MainMenu.h"
 #include "Student.h"
+#include "Driver.h"
+#include "Admin.h"
 #include "FileManager.h"
 
 class TransmitSystem
@@ -18,8 +20,11 @@ private:
     void studentLogin();
     void studentRegistration();
 
+    void driverLogin();
+    void adminLogin();
+
     MainMenu mainMenu;
     FileManager fileManager;
 };
 
-#endif  
+#endif

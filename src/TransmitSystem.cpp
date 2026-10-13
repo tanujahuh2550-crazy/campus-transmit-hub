@@ -176,7 +176,7 @@ void TransmitSystem::driverSection()
         switch(choice)
         {
             case 1:
-                cout << "\nDriver Login selected.\n";
+                driverLogin();
                 break;
 
             case 2:
@@ -188,6 +188,36 @@ void TransmitSystem::driverSection()
         }
 
     } while(choice != 2);
+}
+
+
+void TransmitSystem::driverLogin()
+{
+    string id, password;
+
+    cout << "\n========== DRIVER LOGIN ==========\n";
+    cout << "Enter Driver ID: ";
+    cin >> id;
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    vector<Driver> drivers = fileManager.readDrivers();
+
+    for(const Driver& driver : drivers)
+    {
+        if(driver.getId() == id &&
+           driver.getPassword() == password)
+        {
+            cout << "\nLogin successful!\n";
+            cout << "Welcome, " << driver.getName() << "!\n";
+            cout << "License: " << driver.getLicenseNumber() << "\n";
+            cout << "Assigned Bus: " << driver.getAssignedBusId() << "\n";
+            return;
+        }
+    }
+
+    cout << "\nInvalid Driver ID or Password.\n";
 }
 
 // Admin Section
@@ -208,7 +238,7 @@ void TransmitSystem::adminSection()
         switch(choice)
         {
             case 1:
-                cout << "\nAdmin Login selected.\n";
+                adminLogin();
                 break;
 
             case 2:
@@ -220,4 +250,32 @@ void TransmitSystem::adminSection()
         }
 
     } while(choice != 2);
+}
+
+void TransmitSystem::adminLogin()
+{
+    string id, password;
+
+    cout << "\n========== ADMIN LOGIN ==========\n";
+    cout << "Enter Admin ID: ";
+    cin >> id;
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    vector<Admin> admins = fileManager.readAdmins();
+
+    for(const Admin& admin : admins)
+    {
+        if(admin.getId() == id &&
+           admin.getPassword() == password)
+        {
+            cout << "\nLogin successful!\n";
+            cout << "Welcome, " << admin.getName() << "!\n";
+            cout << "Admin ID: " << admin.getAdminId() << "\n";
+            return;
+        }
+    }
+
+    cout << "\nInvalid Admin ID or Password.\n";
 }
