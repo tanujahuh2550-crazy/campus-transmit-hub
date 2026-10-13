@@ -2,7 +2,7 @@
 
 **Smart Bus Information & Route Management System**
 
-Campus Transmit Hub is a C++17 console-based project for managing college transportation. It has separate sections for students, drivers, and admins. The admin can manage bus details, routes, schedules, notifications, and reports.
+Campus Transmit Hub is a C++ console-based project for managing college transportation. It has separate sections for students, drivers, and admins. The admin can manage bus details, routes, schedules, notifications, and reports.
 
 ## Building
 
