@@ -39,7 +39,7 @@ void TransmitSystem::run()
     } while(choice != 4);
 }
 
-// Student Section
+// ==================== STUDENT SECTION ====================
 
 void TransmitSystem::studentSection()
 {
@@ -76,7 +76,7 @@ void TransmitSystem::studentSection()
     } while(choice != 3);
 }
 
-// Student Registration
+// ==================== STUDENT REGISTRATION ====================
 
 void TransmitSystem::studentRegistration()
 {
@@ -88,7 +88,6 @@ void TransmitSystem::studentRegistration()
     cout << "Enter Student ID: ";
     cin >> id;
 
-    // Check whether the ID is already registered
     vector<Student> students = fileManager.readStudents();
 
     for(const Student& student : students)
@@ -101,7 +100,7 @@ void TransmitSystem::studentRegistration()
     }
 
     cout << "Enter Name: ";
-    cin.ignore();
+    cin >> ws;
     getline(cin, name);
 
     cout << "Enter Password: ";
@@ -126,7 +125,7 @@ void TransmitSystem::studentRegistration()
     cout << "\nRegistration completed successfully!\n";
 }
 
-// Student Login
+// ==================== STUDENT LOGIN ====================
 
 void TransmitSystem::studentLogin()
 {
@@ -158,7 +157,7 @@ void TransmitSystem::studentLogin()
     cout << "\nInvalid Student ID or Password.\n";
 }
 
-// Driver Section
+// ==================== DRIVER SECTION ====================
 
 void TransmitSystem::driverSection()
 {
@@ -168,7 +167,8 @@ void TransmitSystem::driverSection()
     {
         cout << "\n========== DRIVER MENU ==========\n";
         cout << "1. Login\n";
-        cout << "2. Back to Main Menu\n";
+        cout << "2. Register\n";
+        cout << "3. Back to Main Menu\n";
         cout << "=================================\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -180,6 +180,10 @@ void TransmitSystem::driverSection()
                 break;
 
             case 2:
+                driverRegistration();
+                break;
+
+            case 3:
                 cout << "\nReturning to Main Menu...\n";
                 break;
 
@@ -187,15 +191,59 @@ void TransmitSystem::driverSection()
                 cout << "\nInvalid choice. Please try again.\n";
         }
 
-    } while(choice != 2);
+    } while(choice != 3);
 }
 
+// ==================== DRIVER REGISTRATION ====================
+
+void TransmitSystem::driverRegistration()
+{
+    string id, name, password, license, busId;
+
+    cout << "\n========== DRIVER REGISTRATION ==========\n";
+
+    cout << "Enter Driver ID: ";
+    cin >> id;
+
+    vector<Driver> drivers = fileManager.readDrivers();
+
+    for(const Driver& driver : drivers)
+    {
+        if(driver.getId() == id)
+        {
+            cout << "\nDriver ID already exists!\n";
+            return;
+        }
+    }
+
+    cout << "Enter Name: ";
+    cin >> ws;
+    getline(cin, name);
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    cout << "Enter License Number: ";
+    cin >> license;
+
+    cout << "Enter Assigned Bus ID: ";
+    cin >> busId;
+
+    Driver driver(id, name, password, license, busId);
+
+    fileManager.writeDriver(driver);
+
+    cout << "\nDriver registered successfully!\n";
+}
+
+// ==================== DRIVER LOGIN ====================
 
 void TransmitSystem::driverLogin()
 {
     string id, password;
 
     cout << "\n========== DRIVER LOGIN ==========\n";
+
     cout << "Enter Driver ID: ";
     cin >> id;
 
@@ -220,7 +268,7 @@ void TransmitSystem::driverLogin()
     cout << "\nInvalid Driver ID or Password.\n";
 }
 
-// Admin Section
+// ==================== ADMIN SECTION ====================
 
 void TransmitSystem::adminSection()
 {
@@ -252,11 +300,14 @@ void TransmitSystem::adminSection()
     } while(choice != 2);
 }
 
+// ==================== ADMIN LOGIN ====================
+
 void TransmitSystem::adminLogin()
 {
     string id, password;
 
     cout << "\n========== ADMIN LOGIN ==========\n";
+
     cout << "Enter Admin ID: ";
     cin >> id;
 

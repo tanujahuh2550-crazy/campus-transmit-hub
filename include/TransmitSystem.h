@@ -21,6 +21,7 @@ private:
     void studentRegistration();
 
     void driverLogin();
+    void driverRegistration();
     void adminLogin();
 
     MainMenu mainMenu;
