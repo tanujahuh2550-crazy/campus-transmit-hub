@@ -283,8 +283,9 @@ vector<Notification> FileManager::readNotifications() const
 
 void FileManager::writeNotification(const Notification& notification) const
 {
-    string data = notification.getId() + "|" + notification.getMessage() +
-                  "|" + notification.getDate() + "|" +
+    string data = notification.getNotificationId() + "|" +
+                  notification.getMessage() + "|" +
+                  notification.getDate() + "|" +
                   notification.getTargetRole();
 
     appendData("notifications.txt", data);
