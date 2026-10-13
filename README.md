@@ -1,105 +1,85 @@
-# 🚍 Campus Transmit Hub
+# Campus Transmit Hub
 
-**Campus Transmit Hub – Smart Bus Information & Route Management System**
+**Smart Bus Information & Route Management System**
 
-A **console-based C++17 application** for managing campus transportation. Students can view buses, routes, schedules, and notifications, while authorized staff can manage transport information.
+Campus Transmit Hub is a C++17 console-based project for managing college transportation. It provides separate sections for students, drivers, and admins, with features for managing buses, routes, schedules, notifications, and reports.
 
-## ✨ Features
+## Building
 
-* 🔐 User registration and login
-* 🚌 Bus and route management
-* 🕐 Schedule management
-* 👨‍✈️ Driver dashboard
-* 📢 Transport notifications
-* 🔎 Bus and route search
-* ↕️ Sorting and availability checking
-* 📊 Transport reports
-* 💾 File-based data storage
-* ✅ Input validation and exception handling
-
-## 🏛️ Main Classes
-
-```text
-User
-├── Student
-├── Driver
-└── Admin
-
-Bus
-Route
-Schedule
-Notification
-Report
-FileManager
-TransmitSystem
-```
-
-The project demonstrates **OOP, STL, inheritance, file handling, searching, sorting, validation, and modular programming**.
-
-## 📂 Project Structure
-
-```text
-CampusTransmitHub/
-├── docs/
-├── include/
-├── src/
-├── data/
-├── diagrams/
-├── screenshots/
-├── test/
-├── assets/
-├── README.md
-└── PROJECT_GUIDE.md
-```
-
-## 👥 Team
-
-| Member       | Responsibility                                          |
-| ------------ | ------------------------------------------------------- |
-| **Deeya**    | Core Architecture, Integration, Testing & Documentation |
-| **Kavya**    | Authentication, User Management & Notifications         |
-| **Yashasvi** | Bus & Route Management                                  |
-| **Tanuja**   | File Handling & Reports                                 |
-
-## 🛠️ Tech Stack
-
-* **C++17**
-* **g++**
-* **Visual Studio Code**
-* **Git & GitHub**
-* **Text files for storage**
-
-## 🔀 Git Workflow
-
-Each feature is developed on a separate branch and merged into `main` through a Pull Request after testing.
-
-```text
-main
-├── feature/core-architecture
-├── feature/authentication-notifications
-├── feature/bus-route
-└── feature/file-report
-```
-
-## ▶️ How to Run
+Compile the project from the root directory:
 
 ```bash
-git clone <repository-url>
-cd CampusTransmitHub
 g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransmitHub
+```
+
+Run the application:
+
+```bash
 ./CampusTransmitHub
 ```
 
-**Windows:**
+On Windows, run `CampusTransmitHub.exe`.
 
-```bash
-CampusTransmitHub.exe
+## How the code is organised
+
+The project is divided into classes, with each class handling a specific part of the system.
+
+```text
+                 TransmitSystem
+                       |
+                   Main Menu
+                       |
+          +------------+------------+
+          |            |            |
+       Student       Driver        Admin
+       Section       Section       Section
+                                     |
+                                     v
+                              Admin Dashboard
+                                     |
+             +-----------+-----------+-----------+
+             |           |           |           |
+            Bus         Route      Schedule   Notifications
+          Management  Management  Management  Management
+                                     |
+                                     v
+                              Report Management
+                                     |
+                                     v
+                                 FileManager
+                                     |
+                                     v
+                                  Text Files
 ```
 
-## 🚀 Future Scope
+`TransmitSystem` handles the main menus and connects the different parts of the application. `Person` stores the common details shared by `Student`, `Driver`, and `Admin`.
 
-* GPS-based tracking
-* Mobile application
-* QR bus passes
-* Live ETA
-* Transport analytics
+The `Bus`, `Route`, and `Schedule` classes store transportation details. `Notification` and `Report` handle their respective records, while `FileManager` reads and writes data to text files.
+
+## Data storage
+
+The application stores its records in separate text files:
+
+| File | Stores |
+|---|---|
+| `students.txt` | Student details |
+| `drivers.txt` | Driver details |
+| `admins.txt` | Admin details |
+| `buses.txt` | Bus information |
+| `routes.txt` | Routes and stops |
+| `schedules.txt` | Bus schedules |
+| `notifications.txt` | Transport notifications |
+| `reports.txt` | Report records |
+
+## Project files
+
+- `src/` — C++ source files
+- `include/` — Header files
+- `docs/` — Project documentation
+- `data/` — Data files
+- `diagrams/` — Project diagrams
+- `screenshots/` — Application screenshots
+- `test/` — Tests
+- `assets/` — Supporting files
+
+For more details about the classes and their responsibilities, see [`architecture.md`](architecture.md).
