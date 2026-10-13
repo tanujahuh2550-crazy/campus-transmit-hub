@@ -22,7 +22,9 @@ private:
 
     void driverLogin();
     void driverRegistration();
+
     void adminLogin();
+    void adminRegistration();
 
     MainMenu mainMenu;
     FileManager fileManager;

@@ -114,7 +114,7 @@ void TransmitSystem::studentRegistration()
 
     if(semester < 1 || semester > 8)
     {
-        cout << "\nInvalid semester!\n";
+        cout << "\nInvalid semester! Please enter 1 to 8.\n";
         return;
     }
 
@@ -278,7 +278,8 @@ void TransmitSystem::adminSection()
     {
         cout << "\n========== ADMIN MENU ==========\n";
         cout << "1. Login\n";
-        cout << "2. Back to Main Menu\n";
+        cout << "2. Register\n";
+        cout << "3. Back to Main Menu\n";
         cout << "================================\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -290,6 +291,10 @@ void TransmitSystem::adminSection()
                 break;
 
             case 2:
+                adminRegistration();
+                break;
+
+            case 3:
                 cout << "\nReturning to Main Menu...\n";
                 break;
 
@@ -297,7 +302,46 @@ void TransmitSystem::adminSection()
                 cout << "\nInvalid choice. Please try again.\n";
         }
 
-    } while(choice != 2);
+    } while(choice != 3);
+}
+
+// ==================== ADMIN REGISTRATION ====================
+
+void TransmitSystem::adminRegistration()
+{
+    string id, name, password, adminId;
+
+    cout << "\n========== ADMIN REGISTRATION ==========\n";
+
+    cout << "Enter Admin ID: ";
+    cin >> id;
+
+    vector<Admin> admins = fileManager.readAdmins();
+
+    for(const Admin& admin : admins)
+    {
+        if(admin.getId() == id)
+        {
+            cout << "\nAdmin ID already exists!\n";
+            return;
+        }
+    }
+
+    cout << "Enter Name: ";
+    cin >> ws;
+    getline(cin, name);
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    cout << "Enter Admin Identification Code: ";
+    cin >> adminId;
+
+    Admin admin(id, name, password, adminId);
+
+    fileManager.writeAdmin(admin);
+
+    cout << "\nAdmin registered successfully!\n";
 }
 
 // ==================== ADMIN LOGIN ====================
