@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include "../include/TransmitSystem.h"
 
 using namespace std;
@@ -37,6 +39,8 @@ void TransmitSystem::run()
     } while(choice != 4);
 }
 
+// Student Section
+
 void TransmitSystem::studentSection()
 {
     int choice;
@@ -54,11 +58,11 @@ void TransmitSystem::studentSection()
         switch(choice)
         {
             case 1:
-                cout << "\nStudent Login selected.\n";
+                studentLogin();
                 break;
 
             case 2:
-                cout << "\nStudent Registration selected.\n";
+                studentRegistration();
                 break;
 
             case 3:
@@ -72,6 +76,89 @@ void TransmitSystem::studentSection()
     } while(choice != 3);
 }
 
+// Student Registration
+
+void TransmitSystem::studentRegistration()
+{
+    string id, name, password, course;
+    int semester;
+
+    cout << "\n========== STUDENT REGISTRATION ==========\n";
+
+    cout << "Enter Student ID: ";
+    cin >> id;
+
+    // Check whether the ID is already registered
+    vector<Student> students = fileManager.readStudents();
+
+    for(const Student& student : students)
+    {
+        if(student.getId() == id)
+        {
+            cout << "\nStudent ID already exists!\n";
+            return;
+        }
+    }
+
+    cout << "Enter Name: ";
+    cin.ignore();
+    getline(cin, name);
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    cout << "Enter Course: ";
+    cin >> course;
+
+    cout << "Enter Semester: ";
+    cin >> semester;
+
+    if(semester < 1 || semester > 8)
+    {
+        cout << "\nInvalid semester!\n";
+        return;
+    }
+
+    Student student(id, name, password, course, semester);
+
+    fileManager.writeStudent(student);
+
+    cout << "\nRegistration completed successfully!\n";
+}
+
+// Student Login
+
+void TransmitSystem::studentLogin()
+{
+    string id, password;
+
+    cout << "\n========== STUDENT LOGIN ==========\n";
+
+    cout << "Enter Student ID: ";
+    cin >> id;
+
+    cout << "Enter Password: ";
+    cin >> password;
+
+    vector<Student> students = fileManager.readStudents();
+
+    for(const Student& student : students)
+    {
+        if(student.getId() == id &&
+           student.getPassword() == password)
+        {
+            cout << "\nLogin successful!\n";
+            cout << "Welcome, " << student.getName() << "!\n";
+            cout << "Course: " << student.getCourse() << "\n";
+            cout << "Semester: " << student.getSemester() << "\n";
+            return;
+        }
+    }
+
+    cout << "\nInvalid Student ID or Password.\n";
+}
+
+// Driver Section
 
 void TransmitSystem::driverSection()
 {
@@ -103,6 +190,7 @@ void TransmitSystem::driverSection()
     } while(choice != 2);
 }
 
+// Admin Section
 
 void TransmitSystem::adminSection()
 {

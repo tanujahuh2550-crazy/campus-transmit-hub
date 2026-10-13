@@ -2,6 +2,8 @@
 #define TRANSMITSYSTEM_H
 
 #include "MainMenu.h"
+#include "Student.h"
+#include "FileManager.h"
 
 class TransmitSystem
 {
@@ -13,7 +15,11 @@ private:
     void driverSection();
     void adminSection();
 
+    void studentLogin();
+    void studentRegistration();
+
     MainMenu mainMenu;
+    FileManager fileManager;
 };
 
 #endif
