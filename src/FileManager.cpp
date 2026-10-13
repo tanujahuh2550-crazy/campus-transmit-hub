@@ -1,33 +1,27 @@
 #include "../include/FileManager.h"
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 using namespace std;
 
-// Helper function to split a string using a delimiter
+// Split a record into fields
 static vector<string> splitString(const string& text, char delimiter)
 {
-    vector<string> result;
-    string item;
+    vector<string> fields;
+    string field;
     stringstream ss(text);
 
-    while (getline(ss, item, delimiter))
-    {
-        result.push_back(item);
-    }
+    while (getline(ss, field, delimiter))
+        fields.push_back(field);
 
-    // Preserve an empty final field when the record ends with a delimiter
     if (!text.empty() && text.back() == delimiter)
-    {
-        result.push_back("");
-    }
+        fields.push_back("");
 
-    return result;
+    return fields;
 }
 
-// Helper function to join route stops
+// Join route stops
 static string joinStops(const vector<string>& stops)
 {
     string result;
@@ -35,9 +29,7 @@ static string joinStops(const vector<string>& stops)
     for (size_t i = 0; i < stops.size(); i++)
     {
         if (i > 0)
-        {
             result += ";";
-        }
 
         result += stops[i];
     }
@@ -47,67 +39,53 @@ static string joinStops(const vector<string>& stops)
 
 // General file handling
 
-bool FileManager::writeData(
-    const string& filename,
-    const vector<string>& data) const
+bool FileManager::writeData(const string& filename,
+                            const vector<string>& data) const
 {
     ofstream file(filename);
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for writing: "
-             << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return false;
     }
 
     for (const string& line : data)
-    {
         file << line << '\n';
-    }
 
     return file.good();
 }
 
-bool FileManager::appendData(
-    const string& filename,
-    const string& data) const
+bool FileManager::appendData(const string& filename,
+                             const string& data) const
 {
     ofstream file(filename, ios::app);
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for appending: "
-             << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return false;
     }
 
     file << data << '\n';
-
     return file.good();
 }
 
-vector<string> FileManager::readData(
-    const string& filename) const
+vector<string> FileManager::readData(const string& filename) const
 {
     vector<string> data;
     ifstream file(filename);
+    string line;
 
     if (!file)
     {
-        cerr << "Error: Unable to open file for reading: "
-             << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return data;
     }
 
-    string line;
-
     while (getline(file, line))
-    {
         if (!line.empty())
-        {
             data.push_back(line);
-        }
-    }
 
     return data;
 }
@@ -123,13 +101,12 @@ bool FileManager::fileExists(const string& filename) const
 vector<Student> FileManager::readStudents() const
 {
     vector<Student> students;
-    vector<string> records = readData("data/students.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/students.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 5)
+        if (f.size() != 5)
         {
             cerr << "Invalid student record: " << record << endl;
             continue;
@@ -137,34 +114,24 @@ vector<Student> FileManager::readStudents() const
 
         try
         {
-            Student student(
-                fields[0],
-                fields[1],
-                fields[2],
-                fields[3],
-                stoi(fields[4])
+            students.emplace_back(
+                f[0], f[1], f[2], f[3], stoi(f[4])
             );
-
-            students.push_back(student);
         }
-        catch (...)
+        catch (const exception&)
         {
-            cerr << "Error reading student record: "
-                 << record << endl;
+            cerr << "Invalid student data: " << record << endl;
         }
     }
 
     return students;
 }
 
-void FileManager::writeStudent(const Student& student) const
+void FileManager::writeStudent(const Student& s) const
 {
-    string record =
-        student.getId() + "|" +
-        student.getName() + "|" +
-        student.getPassword() + "|" +
-        student.getCourse() + "|" +
-        to_string(student.getSemester());
+    string record = s.getId() + "|" + s.getName() + "|" +
+                    s.getPassword() + "|" + s.getCourse() + "|" +
+                    to_string(s.getSemester());
 
     appendData("data/students.txt", record);
 }
@@ -174,40 +141,28 @@ void FileManager::writeStudent(const Student& student) const
 vector<Driver> FileManager::readDrivers() const
 {
     vector<Driver> drivers;
-    vector<string> records = readData("data/drivers.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/drivers.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 5)
+        if (f.size() != 5)
         {
             cerr << "Invalid driver record: " << record << endl;
             continue;
         }
 
-        Driver driver(
-            fields[0],
-            fields[1],
-            fields[2],
-            fields[3],
-            fields[4]
-        );
-
-        drivers.push_back(driver);
+        drivers.emplace_back(f[0], f[1], f[2], f[3], f[4]);
     }
 
     return drivers;
 }
 
-void FileManager::writeDriver(const Driver& driver) const
+void FileManager::writeDriver(const Driver& d) const
 {
-    string record =
-        driver.getId() + "|" +
-        driver.getName() + "|" +
-        driver.getPassword() + "|" +
-        driver.getLicenseNumber() + "|" +
-        driver.getAssignedBusId();
+    string record = d.getId() + "|" + d.getName() + "|" +
+                    d.getPassword() + "|" + d.getLicenseNumber() + "|" +
+                    d.getAssignedBusId();
 
     appendData("data/drivers.txt", record);
 }
@@ -217,38 +172,27 @@ void FileManager::writeDriver(const Driver& driver) const
 vector<Admin> FileManager::readAdmins() const
 {
     vector<Admin> admins;
-    vector<string> records = readData("data/admins.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/admins.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 4)
+        if (f.size() != 4)
         {
             cerr << "Invalid admin record: " << record << endl;
             continue;
         }
 
-        Admin admin(
-            fields[0],
-            fields[1],
-            fields[2],
-            fields[3]
-        );
-
-        admins.push_back(admin);
+        admins.emplace_back(f[0], f[1], f[2], f[3]);
     }
 
     return admins;
 }
 
-void FileManager::writeAdmin(const Admin& admin) const
+void FileManager::writeAdmin(const Admin& a) const
 {
-    string record =
-        admin.getId() + "|" +
-        admin.getName() + "|" +
-        admin.getPassword() + "|" +
-        admin.getAdminId();
+    string record = a.getId() + "|" + a.getName() + "|" +
+                    a.getPassword() + "|" + a.getAdminId();
 
     appendData("data/admins.txt", record);
 }
@@ -258,13 +202,12 @@ void FileManager::writeAdmin(const Admin& admin) const
 vector<Bus> FileManager::readBuses() const
 {
     vector<Bus> buses;
-    vector<string> records = readData("data/buses.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/buses.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 5)
+        if (f.size() != 5)
         {
             cerr << "Invalid bus record: " << record << endl;
             continue;
@@ -272,51 +215,36 @@ vector<Bus> FileManager::readBuses() const
 
         try
         {
-            bool availability;
+            bool available;
 
-            if (fields[3] == "1" || fields[3] == "true")
-            {
-                availability = true;
-            }
-            else if (fields[3] == "0" || fields[3] == "false")
-            {
-                availability = false;
-            }
+            if (f[3] == "1" || f[3] == "true")
+                available = true;
+            else if (f[3] == "0" || f[3] == "false")
+                available = false;
             else
             {
-                cerr << "Invalid bus availability: "
-                     << record << endl;
+                cerr << "Invalid bus availability: " << record << endl;
                 continue;
             }
 
-            Bus bus(
-                fields[0],
-                fields[1],
-                stoi(fields[2]),
-                availability,
-                fields[4]
+            buses.emplace_back(
+                f[0], f[1], stoi(f[2]), available, f[4]
             );
-
-            buses.push_back(bus);
         }
-        catch (...)
+        catch (const exception&)
         {
-            cerr << "Error reading bus record: "
-                 << record << endl;
+            cerr << "Invalid bus data: " << record << endl;
         }
     }
 
     return buses;
 }
 
-void FileManager::writeBus(const Bus& bus) const
+void FileManager::writeBus(const Bus& b) const
 {
-    string record =
-        bus.getBusId() + "|" +
-        bus.getBusNumber() + "|" +
-        to_string(bus.getCapacity()) + "|" +
-        (bus.isAvailable() ? "1" : "0") + "|" +
-        bus.getStatus();
+    string record = b.getBusId() + "|" + b.getBusNumber() + "|" +
+                    to_string(b.getCapacity()) + "|" +
+                    (b.isAvailable() ? "1" : "0") + "|" + b.getStatus();
 
     appendData("data/buses.txt", record);
 }
@@ -326,43 +254,32 @@ void FileManager::writeBus(const Bus& bus) const
 vector<Route> FileManager::readRoutes() const
 {
     vector<Route> routes;
-    vector<string> records = readData("data/routes.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/routes.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 3)
+        if (f.size() != 3)
         {
             cerr << "Invalid route record: " << record << endl;
             continue;
         }
 
-        vector<string> stops = splitString(fields[2], ';');
+        vector<string> stops;
 
-        if (fields[2].empty())
-        {
-            stops.clear();
-        }
+        if (!f[2].empty())
+            stops = splitString(f[2], ';');
 
-        Route route(
-            fields[0],
-            fields[1],
-            stops
-        );
-
-        routes.push_back(route);
+        routes.emplace_back(f[0], f[1], stops);
     }
 
     return routes;
 }
 
-void FileManager::writeRoute(const Route& route) const
+void FileManager::writeRoute(const Route& r) const
 {
-    string record =
-        route.getRouteId() + "|" +
-        route.getRouteName() + "|" +
-        joinStops(route.getStops());
+    string record = r.getRouteId() + "|" + r.getRouteName() + "|" +
+                    joinStops(r.getStops());
 
     appendData("data/routes.txt", record);
 }
@@ -372,39 +289,27 @@ void FileManager::writeRoute(const Route& route) const
 vector<Schedule> FileManager::readSchedules() const
 {
     vector<Schedule> schedules;
-    vector<string> records = readData("data/schedules.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/schedules.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 4)
+        if (f.size() != 4)
         {
-            cerr << "Invalid schedule record: "
-                 << record << endl;
+            cerr << "Invalid schedule record: " << record << endl;
             continue;
         }
 
-        Schedule schedule(
-            fields[0],
-            fields[1],
-            fields[2],
-            fields[3]
-        );
-
-        schedules.push_back(schedule);
+        schedules.emplace_back(f[0], f[1], f[2], f[3]);
     }
 
     return schedules;
 }
 
-void FileManager::writeSchedule(const Schedule& schedule) const
+void FileManager::writeSchedule(const Schedule& s) const
 {
-    string record =
-        schedule.getScheduleId() + "|" +
-        schedule.getBusId() + "|" +
-        schedule.getRouteId() + "|" +
-        schedule.getDepartureTime();
+    string record = s.getScheduleId() + "|" + s.getBusId() + "|" +
+                    s.getRouteId() + "|" + s.getDepartureTime();
 
     appendData("data/schedules.txt", record);
 }
@@ -414,40 +319,27 @@ void FileManager::writeSchedule(const Schedule& schedule) const
 vector<Notification> FileManager::readNotifications() const
 {
     vector<Notification> notifications;
-    vector<string> records = readData("data/notifications.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/notifications.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 4)
+        if (f.size() != 4)
         {
-            cerr << "Invalid notification record: "
-                 << record << endl;
+            cerr << "Invalid notification record: " << record << endl;
             continue;
         }
 
-        Notification notification(
-            fields[0],
-            fields[1],
-            fields[2],
-            fields[3]
-        );
-
-        notifications.push_back(notification);
+        notifications.emplace_back(f[0], f[1], f[2], f[3]);
     }
 
     return notifications;
 }
 
-void FileManager::writeNotification(
-    const Notification& notification) const
+void FileManager::writeNotification(const Notification& n) const
 {
-    string record =
-        notification.getNotificationId() + "|" +
-        notification.getMessage() + "|" +
-        notification.getDate() + "|" +
-        notification.getTargetRole();
+    string record = n.getNotificationId() + "|" + n.getMessage() +
+                    "|" + n.getDate() + "|" + n.getTargetRole();
 
     appendData("data/notifications.txt", record);
 }
@@ -457,38 +349,27 @@ void FileManager::writeNotification(
 vector<Report> FileManager::readReports() const
 {
     vector<Report> reports;
-    vector<string> records = readData("data/reports.txt");
 
-    for (const string& record : records)
+    for (const string& record : readData("data/reports.txt"))
     {
-        vector<string> fields = splitString(record, '|');
+        vector<string> f = splitString(record, '|');
 
-        if (fields.size() != 4)
+        if (f.size() != 4)
         {
             cerr << "Invalid report record: " << record << endl;
             continue;
         }
 
-        Report report(
-            fields[0],
-            fields[1],
-            fields[2],
-            fields[3]
-        );
-
-        reports.push_back(report);
+        reports.emplace_back(f[0], f[1], f[2], f[3]);
     }
 
     return reports;
 }
 
-void FileManager::writeReport(const Report& report) const
+void FileManager::writeReport(const Report& r) const
 {
-    string record =
-        report.getReportId() + "|" +
-        report.getReportType() + "|" +
-        report.getGeneratedDate() + "|" +
-        report.getContent();
+    string record = r.getReportId() + "|" + r.getReportType() + "|" +
+                    r.getGeneratedDate() + "|" + r.getContent();
 
     appendData("data/reports.txt", record);
 }

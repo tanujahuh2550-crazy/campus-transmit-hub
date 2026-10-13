@@ -1,7 +1,5 @@
 #include "../include/Report.h"
-#include "../include/FileManager.h"
 #include <iostream>
-#include <ctime>
 using namespace std;
 
 Report::Report()
@@ -13,21 +11,10 @@ Report::Report(string reportId, string reportType,
     : reportId(reportId), reportType(reportType),
       generatedDate(generatedDate), content(content) {}
 
-string Report::getReportId() const {
-    return reportId;
-}
-
-string Report::getReportType() const {
-    return reportType;
-}
-
-string Report::getGeneratedDate() const {
-    return generatedDate;
-}
-
-string Report::getContent() const {
-    return content;
-}
+string Report::getReportId() const { return reportId; }
+string Report::getReportType() const { return reportType; }
+string Report::getGeneratedDate() const { return generatedDate; }
+string Report::getContent() const { return content; }
 
 void Report::setReportType(string reportType) {
     this->reportType = reportType;
