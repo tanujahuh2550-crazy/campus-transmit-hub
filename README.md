@@ -2,7 +2,7 @@
 
 **Smart Bus Information & Route Management System**
 
-Campus Transmit Hub is a C++17 console-based project for managing college transportation. It provides separate sections for students, drivers, and admins, with features for managing buses, routes, schedules, notifications, and reports.
+Campus Transmit Hub is a C++ console-based project for managing college transportation. It has separate sections for students, drivers, and admins. The admin can manage bus details, routes, schedules, notifications, and reports.
 
 ## Building
 
@@ -12,7 +12,7 @@ Compile the project from the root directory:
 g++ -std=c++17 src/*.cpp -Iinclude -o CampusTransmitHub
 ```
 
-Run the application:
+Run on Linux or Git Bash:
 
 ```bash
 ./CampusTransmitHub
@@ -22,64 +22,66 @@ On Windows, run `CampusTransmitHub.exe`.
 
 ## How the code is organised
 
-The project is divided into classes, with each class handling a specific part of the system.
+The application is divided into classes, with each class handling a specific part of the project.
 
 ```text
-                 TransmitSystem
-                       |
-                   Main Menu
-                       |
-          +------------+------------+
-          |            |            |
-       Student       Driver        Admin
-       Section       Section       Section
-                                     |
-                                     v
-                              Admin Dashboard
-                                     |
-             +-----------+-----------+-----------+
-             |           |           |           |
-            Bus         Route      Schedule   Notifications
-          Management  Management  Management  Management
-                                     |
-                                     v
-                              Report Management
-                                     |
-                                     v
-                                 FileManager
-                                     |
-                                     v
-                                  Text Files
+                 main.cpp
+                    |
+                    v
+              TransmitSystem
+                    |
+                    v
+                 Main Menu
+                    |
+          +---------+---------+
+          |         |         |
+          v         v         v
+       Student    Driver     Admin
+       Section    Section    Section
+                               |
+                               v
+                       Admin Dashboard
+                               |
+          +----------+---------+---------+----------+
+          |          |         |         |          |
+          v          v         v         v          v
+         Bus       Route    Schedule Notification Report
+      Management Management Management Management Management
+          |          |         |         |          |
+          +----------+---------+---------+----------+
+                               |
+                               v
+                           FileManager
+                               |
+                               v
+                           Text Files
 ```
 
-`TransmitSystem` handles the main menus and connects the different parts of the application. `Person` stores the common details shared by `Student`, `Driver`, and `Admin`.
+`TransmitSystem` handles the main program flow and menu navigation. `Person` stores common user details and is the base class for `Student`, `Driver`, and `Admin`.
 
-The `Bus`, `Route`, and `Schedule` classes store transportation details. `Notification` and `Report` handle their respective records, while `FileManager` reads and writes data to text files.
+`Bus`, `Route`, and `Schedule` store transportation details. `Notification` and `Report` handle notification and report information. `FileManager` reads and writes records to text files.
 
-## Data storage
+## Data Storage
 
-The application stores its records in separate text files:
+The application uses separate text files to store records.
 
-| File | Stores |
+| File | Purpose |
 |---|---|
-| `students.txt` | Student details |
-| `drivers.txt` | Driver details |
-| `admins.txt` | Admin details |
-| `buses.txt` | Bus information |
-| `routes.txt` | Routes and stops |
-| `schedules.txt` | Bus schedules |
-| `notifications.txt` | Transport notifications |
+| `students.txt` | Student records |
+| `drivers.txt` | Driver records |
+| `admins.txt` | Admin records |
+| `buses.txt` | Bus details |
+| `routes.txt` | Route information |
+| `schedules.txt` | Schedule details |
+| `notifications.txt` | Notification records |
 | `reports.txt` | Report records |
 
-## Project files
+## Project Structure
 
-- `src/` — C++ source files
-- `include/` — Header files
-- `docs/` — Project documentation
-- `data/` — Data files
-- `diagrams/` — Project diagrams
-- `screenshots/` — Application screenshots
-- `test/` — Tests
-- `assets/` — Supporting files
-
-For more details about the classes and their responsibilities, see [`architecture.md`](architecture.md).
+```text
+CampusTransmitHub/
+├── include/     # Header files
+├── src/         # Source files
+├── README.md
+└── architecture.md
+```
