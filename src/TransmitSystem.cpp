@@ -16,30 +16,17 @@ void TransmitSystem::run()
 
         switch(choice)
         {
-            case 1:
-                studentSection();
-                break;
-
-            case 2:
-                driverSection();
-                break;
-
-            case 3:
-                adminSection();
-                break;
-
-            case 4:
-                cout << "\nExiting Campus Transmit Hub...\n";
-                break;
-
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
+            case 1: studentSection(); break;
+            case 2: driverSection(); break;
+            case 3: adminSection(); break;
+            case 4: cout << "\nExiting Campus Transmit Hub...\n"; break;
+            default: cout << "\nInvalid choice.\n";
         }
 
     } while(choice != 4);
 }
 
-// ==================== STUDENT SECTION ====================
+// Student Section
 
 void TransmitSystem::studentSection()
 {
@@ -47,45 +34,29 @@ void TransmitSystem::studentSection()
 
     do
     {
-        cout << "\n========== STUDENT MENU ==========\n";
-        cout << "1. Login\n";
-        cout << "2. Register\n";
-        cout << "3. Back to Main Menu\n";
-        cout << "==================================\n";
-        cout << "Enter your choice: ";
+        cout << "\n--- Student Menu ---\n";
+        cout << "1. Login\n2. Register\n3. Back\n";
+        cout << "Choice: ";
         cin >> choice;
 
         switch(choice)
         {
-            case 1:
-                studentLogin();
-                break;
-
-            case 2:
-                studentRegistration();
-                break;
-
-            case 3:
-                cout << "\nReturning to Main Menu...\n";
-                break;
-
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
+            case 1: studentLogin(); break;
+            case 2: studentRegistration(); break;
+            case 3: break;
+            default: cout << "Invalid choice.\n";
         }
 
     } while(choice != 3);
 }
-
-// ==================== STUDENT REGISTRATION ====================
 
 void TransmitSystem::studentRegistration()
 {
     string id, name, password, course;
     int semester;
 
-    cout << "\n========== STUDENT REGISTRATION ==========\n";
-
-    cout << "Enter Student ID: ";
+    cout << "\n--- Student Registration ---\n";
+    cout << "Student ID: ";
     cin >> id;
 
     vector<Student> students = fileManager.readStudents();
@@ -94,49 +65,44 @@ void TransmitSystem::studentRegistration()
     {
         if(student.getId() == id)
         {
-            cout << "\nStudent ID already exists!\n";
+            cout << "Student ID already exists!\n";
             return;
         }
     }
 
-    cout << "Enter Name: ";
+    cout << "Name: ";
     cin >> ws;
     getline(cin, name);
 
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
-    cout << "Enter Course: ";
+    cout << "Course: ";
     cin >> course;
 
-    cout << "Enter Semester: ";
+    cout << "Semester: ";
     cin >> semester;
 
     if(semester < 1 || semester > 8)
     {
-        cout << "\nInvalid semester! Please enter 1 to 8.\n";
+        cout << "Invalid semester. Enter 1 to 8.\n";
         return;
     }
 
     Student student(id, name, password, course, semester);
-
     fileManager.writeStudent(student);
 
-    cout << "\nRegistration completed successfully!\n";
+    cout << "Registration successful!\n";
 }
-
-// ==================== STUDENT LOGIN ====================
 
 void TransmitSystem::studentLogin()
 {
     string id, password;
 
-    cout << "\n========== STUDENT LOGIN ==========\n";
-
-    cout << "Enter Student ID: ";
+    cout << "\n--- Student Login ---\n";
+    cout << "Student ID: ";
     cin >> id;
-
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
     vector<Student> students = fileManager.readStudents();
@@ -146,7 +112,7 @@ void TransmitSystem::studentLogin()
         if(student.getId() == id &&
            student.getPassword() == password)
         {
-            cout << "\nLogin successful!\n";
+            cout << "Login successful!\n";
             cout << "Welcome, " << student.getName() << "!\n";
             cout << "Course: " << student.getCourse() << "\n";
             cout << "Semester: " << student.getSemester() << "\n";
@@ -154,10 +120,10 @@ void TransmitSystem::studentLogin()
         }
     }
 
-    cout << "\nInvalid Student ID or Password.\n";
+    cout << "Invalid Student ID or Password.\n";
 }
 
-// ==================== DRIVER SECTION ====================
+// Driver Section
 
 void TransmitSystem::driverSection()
 {
@@ -165,44 +131,28 @@ void TransmitSystem::driverSection()
 
     do
     {
-        cout << "\n========== DRIVER MENU ==========\n";
-        cout << "1. Login\n";
-        cout << "2. Register\n";
-        cout << "3. Back to Main Menu\n";
-        cout << "=================================\n";
-        cout << "Enter your choice: ";
+        cout << "\n--- Driver Menu ---\n";
+        cout << "1. Login\n2. Register\n3. Back\n";
+        cout << "Choice: ";
         cin >> choice;
 
         switch(choice)
         {
-            case 1:
-                driverLogin();
-                break;
-
-            case 2:
-                driverRegistration();
-                break;
-
-            case 3:
-                cout << "\nReturning to Main Menu...\n";
-                break;
-
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
+            case 1: driverLogin(); break;
+            case 2: driverRegistration(); break;
+            case 3: break;
+            default: cout << "Invalid choice.\n";
         }
 
     } while(choice != 3);
 }
 
-// ==================== DRIVER REGISTRATION ====================
-
 void TransmitSystem::driverRegistration()
 {
     string id, name, password, license, busId;
 
-    cout << "\n========== DRIVER REGISTRATION ==========\n";
-
-    cout << "Enter Driver ID: ";
+    cout << "\n--- Driver Registration ---\n";
+    cout << "Driver ID: ";
     cin >> id;
 
     vector<Driver> drivers = fileManager.readDrivers();
@@ -211,43 +161,38 @@ void TransmitSystem::driverRegistration()
     {
         if(driver.getId() == id)
         {
-            cout << "\nDriver ID already exists!\n";
+            cout << "Driver ID already exists!\n";
             return;
         }
     }
 
-    cout << "Enter Name: ";
+    cout << "Name: ";
     cin >> ws;
     getline(cin, name);
 
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
-    cout << "Enter License Number: ";
+    cout << "License Number: ";
     cin >> license;
 
-    cout << "Enter Assigned Bus ID: ";
+    cout << "Assigned Bus ID: ";
     cin >> busId;
 
     Driver driver(id, name, password, license, busId);
-
     fileManager.writeDriver(driver);
 
-    cout << "\nDriver registered successfully!\n";
+    cout << "Driver registration successful!\n";
 }
-
-// ==================== DRIVER LOGIN ====================
 
 void TransmitSystem::driverLogin()
 {
     string id, password;
 
-    cout << "\n========== DRIVER LOGIN ==========\n";
-
-    cout << "Enter Driver ID: ";
+    cout << "\n--- Driver Login ---\n";
+    cout << "Driver ID: ";
     cin >> id;
-
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
     vector<Driver> drivers = fileManager.readDrivers();
@@ -257,7 +202,7 @@ void TransmitSystem::driverLogin()
         if(driver.getId() == id &&
            driver.getPassword() == password)
         {
-            cout << "\nLogin successful!\n";
+            cout << "Login successful!\n";
             cout << "Welcome, " << driver.getName() << "!\n";
             cout << "License: " << driver.getLicenseNumber() << "\n";
             cout << "Assigned Bus: " << driver.getAssignedBusId() << "\n";
@@ -265,10 +210,10 @@ void TransmitSystem::driverLogin()
         }
     }
 
-    cout << "\nInvalid Driver ID or Password.\n";
+    cout << "Invalid Driver ID or Password.\n";
 }
 
-// ==================== ADMIN SECTION ====================
+// Admin Section
 
 void TransmitSystem::adminSection()
 {
@@ -276,44 +221,28 @@ void TransmitSystem::adminSection()
 
     do
     {
-        cout << "\n========== ADMIN MENU ==========\n";
-        cout << "1. Login\n";
-        cout << "2. Register\n";
-        cout << "3. Back to Main Menu\n";
-        cout << "================================\n";
-        cout << "Enter your choice: ";
+        cout << "\n--- Admin Menu ---\n";
+        cout << "1. Login\n2. Register\n3. Back\n";
+        cout << "Choice: ";
         cin >> choice;
 
         switch(choice)
         {
-            case 1:
-                adminLogin();
-                break;
-
-            case 2:
-                adminRegistration();
-                break;
-
-            case 3:
-                cout << "\nReturning to Main Menu...\n";
-                break;
-
-            default:
-                cout << "\nInvalid choice. Please try again.\n";
+            case 1: adminLogin(); break;
+            case 2: adminRegistration(); break;
+            case 3: break;
+            default: cout << "Invalid choice.\n";
         }
 
     } while(choice != 3);
 }
 
-// ==================== ADMIN REGISTRATION ====================
-
 void TransmitSystem::adminRegistration()
 {
     string id, name, password, adminId;
 
-    cout << "\n========== ADMIN REGISTRATION ==========\n";
-
-    cout << "Enter Admin ID: ";
+    cout << "\n--- Admin Registration ---\n";
+    cout << "Admin ID: ";
     cin >> id;
 
     vector<Admin> admins = fileManager.readAdmins();
@@ -322,40 +251,35 @@ void TransmitSystem::adminRegistration()
     {
         if(admin.getId() == id)
         {
-            cout << "\nAdmin ID already exists!\n";
+            cout << "Admin ID already exists!\n";
             return;
         }
     }
 
-    cout << "Enter Name: ";
+    cout << "Name: ";
     cin >> ws;
     getline(cin, name);
 
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
-    cout << "Enter Admin Identification Code: ";
+    cout << "Admin Identification Code: ";
     cin >> adminId;
 
     Admin admin(id, name, password, adminId);
-
     fileManager.writeAdmin(admin);
 
-    cout << "\nAdmin registered successfully!\n";
+    cout << "Admin registration successful!\n";
 }
-
-// ==================== ADMIN LOGIN ====================
 
 void TransmitSystem::adminLogin()
 {
     string id, password;
 
-    cout << "\n========== ADMIN LOGIN ==========\n";
-
-    cout << "Enter Admin ID: ";
+    cout << "\n--- Admin Login ---\n";
+    cout << "Admin ID: ";
     cin >> id;
-
-    cout << "Enter Password: ";
+    cout << "Password: ";
     cin >> password;
 
     vector<Admin> admins = fileManager.readAdmins();
@@ -365,12 +289,171 @@ void TransmitSystem::adminLogin()
         if(admin.getId() == id &&
            admin.getPassword() == password)
         {
-            cout << "\nLogin successful!\n";
+            cout << "Login successful!\n";
             cout << "Welcome, " << admin.getName() << "!\n";
-            cout << "Admin ID: " << admin.getAdminId() << "\n";
+
+            adminDashboard();
             return;
         }
     }
 
-    cout << "\nInvalid Admin ID or Password.\n";
+    cout << "Invalid Admin ID or Password.\n";
+}
+
+// Admin Dashboard
+
+void TransmitSystem::adminDashboard()
+{
+    int choice;
+
+    do
+    {
+        cout << "\n--- Admin Dashboard ---\n";
+        cout << "1. Bus Management\n";
+        cout << "2. Route Management\n";
+        cout << "3. Schedule Management\n";
+        cout << "4. Notification Management\n";
+        cout << "5. Report Management\n";
+        cout << "6. Logout\n";
+        cout << "Choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1: busManagement(); break;
+            case 2: routeManagement(); break;
+            case 3: scheduleManagement(); break;
+            case 4: notificationManagement(); break;
+            case 5: reportManagement(); break;
+            case 6: cout << "Logged out successfully.\n"; break;
+            default: cout << "Invalid choice.\n";
+        }
+
+    } while(choice != 6);
+}
+
+// Bus Management
+
+void TransmitSystem::busManagement()
+{
+    int choice;
+
+    do
+    {
+        cout << "\n--- Bus Management ---\n";
+        cout << "1. Add Bus\n2. View Buses\n3. Back\n";
+        cout << "Choice: ";
+        cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+            {
+                string id, number, status;
+                int capacity, available;
+
+                cout << "Bus ID: ";
+                cin >> id;
+
+                vector<Bus> buses = fileManager.readBuses();
+
+                bool exists = false;
+
+                for(const Bus& bus : buses)
+                {
+                    if(bus.getBusId() == id)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if(exists)
+                {
+                    cout << "Bus ID already exists!\n";
+                    break;
+                }
+
+                cout << "Bus Number: ";
+                cin >> number;
+
+                cout << "Capacity: ";
+                cin >> capacity;
+
+                if(capacity <= 0)
+                {
+                    cout << "Invalid capacity.\n";
+                    break;
+                }
+
+                cout << "Available? (1 = Yes, 0 = No): ";
+                cin >> available;
+
+                if(available != 0 && available != 1)
+                {
+                    cout << "Invalid availability choice.\n";
+                    break;
+                }
+
+                cout << "Status: ";
+                cin >> status;
+
+                Bus bus(id, number, capacity, available == 1, status);
+                fileManager.writeBus(bus);
+
+                cout << "Bus added successfully!\n";
+                break;
+            }
+
+            case 2:
+            {
+                vector<Bus> buses = fileManager.readBuses();
+
+                if(buses.empty())
+                {
+                    cout << "No buses found.\n";
+                    break;
+                }
+
+                for(const Bus& bus : buses)
+                {
+                    cout << "\nBus ID: " << bus.getBusId() << "\n";
+                    cout << "Number: " << bus.getBusNumber() << "\n";
+                    cout << "Capacity: " << bus.getCapacity() << "\n";
+                    cout << "Availability: "
+                         << (bus.isAvailable() ? "Available" : "Unavailable")
+                         << "\n";
+                    cout << "Status: " << bus.getStatus() << "\n";
+                }
+
+                break;
+            }
+
+            case 3: break;
+            default: cout << "Invalid choice.\n";
+        }
+
+    } while(choice != 3);
+}
+
+// Other Modules
+
+void TransmitSystem::routeManagement()
+{
+    cout << "\nRoute Management is coming next.\n";
+}
+
+void TransmitSystem::scheduleManagement()
+{
+    cout << "\nSchedule Management is coming next.\n";
+}
+
+void TransmitSystem::notificationManagement()
+{
+    cout << "\nNotification Management is coming next.\n";
+}
+
+void TransmitSystem::reportManagement()
+{
+    cout << "\nReport Management is coming next.\n";
 }
