@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// Main System
+
 void TransmitSystem::run()
 {
     int choice;
@@ -15,7 +17,7 @@ void TransmitSystem::run()
         mainMenu.display();
         choice = mainMenu.getChoice();
 
-        switch(choice)
+        switch (choice)
         {
             case 1: studentSection(); break;
             case 2: driverSection(); break;
@@ -24,7 +26,7 @@ void TransmitSystem::run()
             default: cout << "\nInvalid choice.\n";
         }
 
-    } while(choice != 4);
+    } while (choice != 4);
 }
 
 // Student Section
@@ -40,7 +42,7 @@ void TransmitSystem::studentSection()
         cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
             case 1: studentLogin(); break;
             case 2: studentRegistration(); break;
@@ -48,7 +50,7 @@ void TransmitSystem::studentSection()
             default: cout << "Invalid choice.\n";
         }
 
-    } while(choice != 3);
+    } while (choice != 3);
 }
 
 void TransmitSystem::studentRegistration()
@@ -62,9 +64,9 @@ void TransmitSystem::studentRegistration()
 
     vector<Student> students = fileManager.readStudents();
 
-    for(const Student& student : students)
+    for (const Student& student : students)
     {
-        if(student.getId() == id)
+        if (student.getId() == id)
         {
             cout << "Student ID already exists!\n";
             return;
@@ -84,7 +86,7 @@ void TransmitSystem::studentRegistration()
     cout << "Semester: ";
     cin >> semester;
 
-    if(semester < 1 || semester > 8)
+    if (semester < 1 || semester > 8)
     {
         cout << "Invalid semester. Enter 1 to 8.\n";
         return;
@@ -103,15 +105,16 @@ void TransmitSystem::studentLogin()
     cout << "\n--- Student Login ---\n";
     cout << "Student ID: ";
     cin >> id;
+
     cout << "Password: ";
     cin >> password;
 
     vector<Student> students = fileManager.readStudents();
 
-    for(const Student& student : students)
+    for (const Student& student : students)
     {
-        if(student.getId() == id &&
-           student.getPassword() == password)
+        if (student.getId() == id &&
+            student.getPassword() == password)
         {
             cout << "Login successful!\n";
             cout << "Welcome, " << student.getName() << "!\n";
@@ -137,7 +140,7 @@ void TransmitSystem::driverSection()
         cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
             case 1: driverLogin(); break;
             case 2: driverRegistration(); break;
@@ -145,7 +148,7 @@ void TransmitSystem::driverSection()
             default: cout << "Invalid choice.\n";
         }
 
-    } while(choice != 3);
+    } while (choice != 3);
 }
 
 void TransmitSystem::driverRegistration()
@@ -158,9 +161,9 @@ void TransmitSystem::driverRegistration()
 
     vector<Driver> drivers = fileManager.readDrivers();
 
-    for(const Driver& driver : drivers)
+    for (const Driver& driver : drivers)
     {
-        if(driver.getId() == id)
+        if (driver.getId() == id)
         {
             cout << "Driver ID already exists!\n";
             return;
@@ -193,15 +196,16 @@ void TransmitSystem::driverLogin()
     cout << "\n--- Driver Login ---\n";
     cout << "Driver ID: ";
     cin >> id;
+
     cout << "Password: ";
     cin >> password;
 
     vector<Driver> drivers = fileManager.readDrivers();
 
-    for(const Driver& driver : drivers)
+    for (const Driver& driver : drivers)
     {
-        if(driver.getId() == id &&
-           driver.getPassword() == password)
+        if (driver.getId() == id &&
+            driver.getPassword() == password)
         {
             cout << "Login successful!\n";
             cout << "Welcome, " << driver.getName() << "!\n";
@@ -227,7 +231,7 @@ void TransmitSystem::adminSection()
         cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
             case 1: adminLogin(); break;
             case 2: adminRegistration(); break;
@@ -235,7 +239,7 @@ void TransmitSystem::adminSection()
             default: cout << "Invalid choice.\n";
         }
 
-    } while(choice != 3);
+    } while (choice != 3);
 }
 
 void TransmitSystem::adminRegistration()
@@ -248,9 +252,9 @@ void TransmitSystem::adminRegistration()
 
     vector<Admin> admins = fileManager.readAdmins();
 
-    for(const Admin& admin : admins)
+    for (const Admin& admin : admins)
     {
-        if(admin.getId() == id)
+        if (admin.getId() == id)
         {
             cout << "Admin ID already exists!\n";
             return;
@@ -280,15 +284,16 @@ void TransmitSystem::adminLogin()
     cout << "\n--- Admin Login ---\n";
     cout << "Admin ID: ";
     cin >> id;
+
     cout << "Password: ";
     cin >> password;
 
     vector<Admin> admins = fileManager.readAdmins();
 
-    for(const Admin& admin : admins)
+    for (const Admin& admin : admins)
     {
-        if(admin.getId() == id &&
-           admin.getPassword() == password)
+        if (admin.getId() == id &&
+            admin.getPassword() == password)
         {
             cout << "Login successful!\n";
             cout << "Welcome, " << admin.getName() << "!\n";
@@ -319,7 +324,7 @@ void TransmitSystem::adminDashboard()
         cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
             case 1: busManagement(); break;
             case 2: routeManagement(); break;
@@ -330,7 +335,7 @@ void TransmitSystem::adminDashboard()
             default: cout << "Invalid choice.\n";
         }
 
-    } while(choice != 6);
+    } while (choice != 6);
 }
 
 // Bus Management
@@ -346,7 +351,7 @@ void TransmitSystem::busManagement()
         cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
             case 1:
             {
@@ -357,19 +362,18 @@ void TransmitSystem::busManagement()
                 cin >> id;
 
                 vector<Bus> buses = fileManager.readBuses();
-
                 bool exists = false;
 
-                for(const Bus& bus : buses)
+                for (const Bus& bus : buses)
                 {
-                    if(bus.getBusId() == id)
+                    if (bus.getBusId() == id)
                     {
                         exists = true;
                         break;
                     }
                 }
 
-                if(exists)
+                if (exists)
                 {
                     cout << "Bus ID already exists!\n";
                     break;
@@ -381,7 +385,7 @@ void TransmitSystem::busManagement()
                 cout << "Capacity: ";
                 cin >> capacity;
 
-                if(capacity <= 0)
+                if (capacity <= 0)
                 {
                     cout << "Invalid capacity.\n";
                     break;
@@ -390,13 +394,13 @@ void TransmitSystem::busManagement()
                 cout << "Available? (1 = Yes, 0 = No): ";
                 cin >> available;
 
-                if(available != 0 && available != 1)
+                if (available != 0 && available != 1)
                 {
                     cout << "Invalid availability choice.\n";
                     break;
                 }
 
-                cout << "Status: ";
+                cout << "Status (Active/Inactive/Maintenance): ";
                 cin >> status;
 
                 Bus bus(id, number, capacity, available == 1, status);
@@ -410,13 +414,13 @@ void TransmitSystem::busManagement()
             {
                 vector<Bus> buses = fileManager.readBuses();
 
-                if(buses.empty())
+                if (buses.empty())
                 {
                     cout << "No buses found.\n";
                     break;
                 }
 
-                for(const Bus& bus : buses)
+                for (const Bus& bus : buses)
                 {
                     cout << "\nBus ID: " << bus.getBusId() << "\n";
                     cout << "Number: " << bus.getBusNumber() << "\n";
@@ -430,14 +434,17 @@ void TransmitSystem::busManagement()
                 break;
             }
 
-            case 3: break;
-            default: cout << "Invalid choice.\n";
+            case 3:
+                break;
+
+            default:
+                cout << "Invalid choice.\n";
         }
 
-    } while(choice != 3);
+    } while (choice != 3);
 }
 
-// Other Modules
+// Route Management
 
 void TransmitSystem::routeManagement()
 {
@@ -462,12 +469,11 @@ void TransmitSystem::routeManagement()
             cin >> routeId;
 
             vector<Route> routes = fileManager.readRoutes();
-
             bool exists = false;
 
-            for (int i = 0; i < routes.size(); i++)
+            for (const Route& route : routes)
             {
-                if (routes[i].getRouteId() == routeId)
+                if (route.getRouteId() == routeId)
                 {
                     exists = true;
                     break;
@@ -509,7 +515,7 @@ void TransmitSystem::routeManagement()
             Route route(routeId, routeName, stops);
             fileManager.writeRoute(route);
 
-            cout << "\nRoute added successfully!\n";
+            cout << "Route added successfully!\n";
         }
         else if (choice == 2)
         {
@@ -517,32 +523,26 @@ void TransmitSystem::routeManagement()
 
             if (routes.empty())
             {
-                cout << "\nNo routes found.\n";
+                cout << "No routes found.\n";
             }
             else
             {
                 cout << "\n========== SAVED ROUTES ==========\n";
 
-                for (int i = 0; i < routes.size(); i++)
+                for (const Route& route : routes)
                 {
-                    cout << "\nRoute ID: "
-                         << routes[i].getRouteId() << endl;
-
-                    cout << "Route Name: "
-                         << routes[i].getRouteName() << endl;
-
+                    cout << "\nRoute ID: " << route.getRouteId() << endl;
+                    cout << "Route Name: " << route.getRouteName() << endl;
                     cout << "Stops: ";
 
-                    vector<string> stops = routes[i].getStops();
+                    vector<string> stops = route.getStops();
 
-                    for (int j = 0; j < stops.size(); j++)
+                    for (int i = 0; i < stops.size(); i++)
                     {
-                        cout << stops[j];
+                        cout << stops[i];
 
-                        if (j < stops.size() - 1)
-                        {
+                        if (i < stops.size() - 1)
                             cout << " -> ";
-                        }
                     }
 
                     cout << endl;
@@ -555,11 +555,13 @@ void TransmitSystem::routeManagement()
         }
         else
         {
-            cout << "Invalid choice! Try again.\n";
+            cout << "Invalid choice!\n";
         }
 
     } while (choice != 3);
 }
+
+// Schedule Management
 
 void TransmitSystem::scheduleManagement()
 {
@@ -582,12 +584,11 @@ void TransmitSystem::scheduleManagement()
             cin >> scheduleId;
 
             vector<Schedule> schedules = fileManager.readSchedules();
-
             bool exists = false;
 
-            for (int i = 0; i < schedules.size(); i++)
+            for (const Schedule& schedule : schedules)
             {
-                if (schedules[i].getScheduleId() == scheduleId)
+                if (schedule.getScheduleId() == scheduleId)
                 {
                     exists = true;
                     break;
@@ -606,9 +607,9 @@ void TransmitSystem::scheduleManagement()
             vector<Bus> buses = fileManager.readBuses();
             bool busExists = false;
 
-            for (int i = 0; i < buses.size(); i++)
+            for (const Bus& bus : buses)
             {
-                if (buses[i].getBusId() == busId)
+                if (bus.getBusId() == busId)
                 {
                     busExists = true;
                     break;
@@ -627,9 +628,9 @@ void TransmitSystem::scheduleManagement()
             vector<Route> routes = fileManager.readRoutes();
             bool routeExists = false;
 
-            for (int i = 0; i < routes.size(); i++)
+            for (const Route& route : routes)
             {
-                if (routes[i].getRouteId() == routeId)
+                if (route.getRouteId() == routeId)
                 {
                     routeExists = true;
                     break;
@@ -655,7 +656,7 @@ void TransmitSystem::scheduleManagement()
 
             fileManager.writeSchedule(schedule);
 
-            cout << "\nSchedule added successfully!\n";
+            cout << "Schedule added successfully!\n";
         }
         else if (choice == 2)
         {
@@ -663,25 +664,22 @@ void TransmitSystem::scheduleManagement()
 
             if (schedules.empty())
             {
-                cout << "\nNo schedules found.\n";
+                cout << "No schedules found.\n";
             }
             else
             {
                 cout << "\n========== SAVED SCHEDULES ==========\n";
 
-                for (int i = 0; i < schedules.size(); i++)
+                for (const Schedule& schedule : schedules)
                 {
                     cout << "\nSchedule ID: "
-                         << schedules[i].getScheduleId() << endl;
-
+                         << schedule.getScheduleId() << endl;
                     cout << "Bus ID: "
-                         << schedules[i].getBusId() << endl;
-
+                         << schedule.getBusId() << endl;
                     cout << "Route ID: "
-                         << schedules[i].getRouteId() << endl;
-
+                         << schedule.getRouteId() << endl;
                     cout << "Departure Time: "
-                         << schedules[i].getDepartureTime() << endl;
+                         << schedule.getDepartureTime() << endl;
                 }
             }
         }
@@ -691,18 +689,227 @@ void TransmitSystem::scheduleManagement()
         }
         else
         {
-            cout << "Invalid choice! Try again.\n";
+            cout << "Invalid choice!\n";
         }
 
     } while (choice != 3);
 }
 
+// Notification Management
+
 void TransmitSystem::notificationManagement()
 {
-    cout << "\nNotification Management is coming next.\n";
+    int choice;
+
+    do
+    {
+        cout << "\n========== NOTIFICATION MANAGEMENT ==========\n";
+        cout << "1. Add Notification\n";
+        cout << "2. View Notifications\n";
+        cout << "3. Back to Admin Dashboard\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            string notificationId, message, date, targetRole;
+
+            cout << "\nEnter Notification ID: ";
+            cin >> notificationId;
+
+            vector<Notification> notifications =
+                fileManager.readNotifications();
+
+            bool exists = false;
+
+            for (const Notification& notification : notifications)
+            {
+                if (notification.getId() == notificationId)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists)
+            {
+                cout << "Notification ID already exists!\n";
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Enter Notification Message: ";
+            getline(cin, message);
+
+            cout << "Enter Date (e.g. 13-10-2026): ";
+            getline(cin, date);
+
+            cout << "\nSelect Target Role:\n";
+            cout << "1. Student\n";
+            cout << "2. Driver\n";
+            cout << "3. All\n";
+            cout << "Enter choice: ";
+
+            int roleChoice;
+            cin >> roleChoice;
+
+            if (roleChoice == 1)
+                targetRole = "Student";
+            else if (roleChoice == 2)
+                targetRole = "Driver";
+            else if (roleChoice == 3)
+                targetRole = "All";
+            else
+            {
+                cout << "Invalid role choice!\n";
+                continue;
+            }
+
+            Notification notification(
+                notificationId,
+                message,
+                date,
+                targetRole
+            );
+
+            fileManager.writeNotification(notification);
+
+            cout << "Notification added successfully!\n";
+        }
+        else if (choice == 2)
+        {
+            vector<Notification> notifications =
+                fileManager.readNotifications();
+
+            if (notifications.empty())
+            {
+                cout << "No notifications found.\n";
+            }
+            else
+            {
+                cout << "\n========== SAVED NOTIFICATIONS ==========\n";
+
+                for (const Notification& notification : notifications)
+                {
+                    cout << "\nNotification ID: "
+                         << notification.getId() << endl;
+                    cout << "Message: "
+                         << notification.getMessage() << endl;
+                    cout << "Date: "
+                         << notification.getDate() << endl;
+                    cout << "Target Role: "
+                         << notification.getTargetRole() << endl;
+                }
+            }
+        }
+        else if (choice == 3)
+        {
+            cout << "Returning to Admin Dashboard...\n";
+        }
+        else
+        {
+            cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 3);
 }
+
+// Report Management
 
 void TransmitSystem::reportManagement()
 {
-    cout << "\nReport Management is coming next.\n";
+    int choice;
+
+    do
+    {
+        cout << "\n========== REPORT MANAGEMENT ==========\n";
+        cout << "1. Generate Report\n";
+        cout << "2. View Reports\n";
+        cout << "3. Back to Admin Dashboard\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            string reportId, reportType, generatedDate, content;
+
+            cout << "\nEnter Report ID: ";
+            cin >> reportId;
+
+            vector<Report> reports = fileManager.readReports();
+            bool exists = false;
+
+            for (const Report& report : reports)
+            {
+                if (report.getReportId() == reportId)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists)
+            {
+                cout << "Report ID already exists!\n";
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Enter Report Type: ";
+            getline(cin, reportType);
+
+            cout << "Enter Generated Date: ";
+            getline(cin, generatedDate);
+
+            cout << "Enter Report Content: ";
+            getline(cin, content);
+
+            Report report(
+                reportId,
+                reportType,
+                generatedDate,
+                content
+            );
+
+            fileManager.writeReport(report);
+
+            cout << "Report generated successfully!\n";
+        }
+        else if (choice == 2)
+        {
+            vector<Report> reports = fileManager.readReports();
+
+            if (reports.empty())
+            {
+                cout << "No reports found.\n";
+            }
+            else
+            {
+                cout << "\n========== SAVED REPORTS ==========\n";
+
+                for (const Report& report : reports)
+                {
+                    cout << "\nReport ID: "
+                         << report.getReportId() << endl;
+                    cout << "Report Type: "
+                         << report.getReportType() << endl;
+                    cout << "Generated Date: "
+                         << report.getGeneratedDate() << endl;
+                    cout << "Content: "
+                         << report.getContent() << endl;
+                }
+            }
+        }
+        else if (choice == 3)
+        {
+            cout << "Returning to Admin Dashboard...\n";
+        }
+        else
+        {
+            cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 3);
 }
