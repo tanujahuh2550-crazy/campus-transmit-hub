@@ -724,7 +724,7 @@ void TransmitSystem::notificationManagement()
 
             for (const Notification& notification : notifications)
             {
-                if (notification.getId() == notificationId)
+                if (notification.getNotificationId() == notificationId)
                 {
                     exists = true;
                     break;
@@ -755,11 +755,17 @@ void TransmitSystem::notificationManagement()
             cin >> roleChoice;
 
             if (roleChoice == 1)
+            {
                 targetRole = "Student";
+            }
             else if (roleChoice == 2)
+            {
                 targetRole = "Driver";
+            }
             else if (roleChoice == 3)
+            {
                 targetRole = "All";
+            }
             else
             {
                 cout << "Invalid role choice!\n";
@@ -775,7 +781,7 @@ void TransmitSystem::notificationManagement()
 
             fileManager.writeNotification(notification);
 
-            cout << "Notification added successfully!\n";
+            cout << "\nNotification added successfully!\n";
         }
         else if (choice == 2)
         {
@@ -784,7 +790,7 @@ void TransmitSystem::notificationManagement()
 
             if (notifications.empty())
             {
-                cout << "No notifications found.\n";
+                cout << "\nNo notifications found.\n";
             }
             else
             {
@@ -793,11 +799,14 @@ void TransmitSystem::notificationManagement()
                 for (const Notification& notification : notifications)
                 {
                     cout << "\nNotification ID: "
-                         << notification.getId() << endl;
+                         << notification.getNotificationId() << endl;
+
                     cout << "Message: "
                          << notification.getMessage() << endl;
+
                     cout << "Date: "
                          << notification.getDate() << endl;
+
                     cout << "Target Role: "
                          << notification.getTargetRole() << endl;
                 }
