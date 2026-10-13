@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
 #include "../include/TransmitSystem.h"
 
 using namespace std;
@@ -440,7 +441,124 @@ void TransmitSystem::busManagement()
 
 void TransmitSystem::routeManagement()
 {
-    cout << "\nRoute Management is coming next.\n";
+    int choice;
+
+    do
+    {
+        cout << "\n========== ROUTE MANAGEMENT ==========\n";
+        cout << "1. Add Route\n";
+        cout << "2. View Routes\n";
+        cout << "3. Back to Admin Dashboard\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            string routeId, routeName;
+            vector<string> stops;
+            int numberOfStops;
+
+            cout << "\nEnter Route ID: ";
+            cin >> routeId;
+
+            vector<Route> routes = fileManager.readRoutes();
+
+            bool exists = false;
+
+            for (int i = 0; i < routes.size(); i++)
+            {
+                if (routes[i].getRouteId() == routeId)
+                {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists)
+            {
+                cout << "Route ID already exists!\n";
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cout << "Enter Route Name: ";
+            getline(cin, routeName);
+
+            cout << "Enter number of stops: ";
+            cin >> numberOfStops;
+
+            if (numberOfStops <= 0)
+            {
+                cout << "Number of stops must be greater than zero.\n";
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            for (int i = 0; i < numberOfStops; i++)
+            {
+                string stop;
+
+                cout << "Enter stop " << i + 1 << ": ";
+                getline(cin, stop);
+
+                stops.push_back(stop);
+            }
+
+            Route route(routeId, routeName, stops);
+            fileManager.writeRoute(route);
+
+            cout << "\nRoute added successfully!\n";
+        }
+        else if (choice == 2)
+        {
+            vector<Route> routes = fileManager.readRoutes();
+
+            if (routes.empty())
+            {
+                cout << "\nNo routes found.\n";
+            }
+            else
+            {
+                cout << "\n========== SAVED ROUTES ==========\n";
+
+                for (int i = 0; i < routes.size(); i++)
+                {
+                    cout << "\nRoute ID: "
+                         << routes[i].getRouteId() << endl;
+
+                    cout << "Route Name: "
+                         << routes[i].getRouteName() << endl;
+
+                    cout << "Stops: ";
+
+                    vector<string> stops = routes[i].getStops();
+
+                    for (int j = 0; j < stops.size(); j++)
+                    {
+                        cout << stops[j];
+
+                        if (j < stops.size() - 1)
+                        {
+                            cout << " -> ";
+                        }
+                    }
+
+                    cout << endl;
+                }
+            }
+        }
+        else if (choice == 3)
+        {
+            cout << "Returning to Admin Dashboard...\n";
+        }
+        else
+        {
+            cout << "Invalid choice! Try again.\n";
+        }
+
+    } while (choice != 3);
 }
 
 void TransmitSystem::scheduleManagement()
