@@ -84,4 +84,4 @@ CampusTransmitHub/
 └── architecture.md
 ```
 
-For more details about the classes, their functions, and how the modules work together, see [`architecture.md`](architecture.md).
+For more details about the classes and their functions, see [architecture.md](docs/architecture.md).
