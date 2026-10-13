@@ -1,64 +1,320 @@
-#ifndef FILEMANAGER_H
-#define FILEMANAGER_H
+#include "../include/FileManager.h"
+#include <fstream>
+#include <sstream>
 
-#include <string>
-#include <vector>
+using namespace std;
 
-#include "Student.h"
-#include "Driver.h"
-#include "Admin.h"
-#include "Bus.h"
-#include "Route.h"
-#include "Schedule.h"
-#include "Notification.h"
-#include "Report.h"
-
-class FileManager
+bool FileManager::writeData(const string& filename,
+                            const vector<string>& data) const
 {
-public:
-    // General file handling
-    bool writeData(const std::string& filename,
-                   const std::vector<std::string>& data) const;
+    ofstream file(filename);
 
-    bool appendData(const std::string& filename,
-                    const std::string& data) const;
+    if (!file.is_open())
+        return false;
 
-    std::vector<std::string> readData(
-        const std::string& filename) const;
+    for (const string& line : data)
+        file << line << endl;
 
-    bool fileExists(const std::string& filename) const;
+    return true;
+}
 
-    // Student
-    std::vector<Student> readStudents() const;
-    void writeStudent(const Student& student) const;
+bool FileManager::appendData(const string& filename,
+                             const string& data) const
+{
+    ofstream file(filename, ios::app);
 
-    // Driver
-    std::vector<Driver> readDrivers() const;
-    void writeDriver(const Driver& driver) const;
+    if (!file.is_open())
+        return false;
 
-    // Admin
-    std::vector<Admin> readAdmins() const;
-    void writeAdmin(const Admin& admin) const;
+    file << data << endl;
+    return true;
+}
 
-    // Bus
-    std::vector<Bus> readBuses() const;
-    void writeBus(const Bus& bus) const;
+vector<string> FileManager::readData(const string& filename) const
+{
+    vector<string> data;
+    ifstream file(filename);
+    string line;
 
-    // Route
-    std::vector<Route> readRoutes() const;
-    void writeRoute(const Route& route) const;
+    while (getline(file, line))
+        data.push_back(line);
 
-    // Schedule
-    std::vector<Schedule> readSchedules() const;
-    void writeSchedule(const Schedule& schedule) const;
+    return data;
+}
 
-    // Notification
-    std::vector<Notification> readNotifications() const;
-    void writeNotification(const Notification& notification) const;
+bool FileManager::fileExists(const string& filename) const
+{
+    ifstream file(filename);
+    return file.good();
+}
 
-    // Report
-    std::vector<Report> readReports() const;
-    void writeReport(const Report& report) const;
-};
+vector<Student> FileManager::readStudents() const
+{
+    vector<Student> students;
+    vector<string> data = readData("students.txt");
 
-#endif
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, name, password, course, semester;
+
+        getline(ss, id, '|');
+        getline(ss, name, '|');
+        getline(ss, password, '|');
+        getline(ss, course, '|');
+        getline(ss, semester, '|');
+
+        try
+        {
+            students.push_back(Student(id, name, password, course, stoi(semester)));
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    return students;
+}
+
+void FileManager::writeStudent(const Student& student) const
+{
+    string data = student.getId() + "|" + student.getName() + "|" +
+                  student.getPassword() + "|" + student.getCourse() + "|" +
+                  to_string(student.getSemester());
+
+    appendData("students.txt", data);
+}
+
+vector<Driver> FileManager::readDrivers() const
+{
+    vector<Driver> drivers;
+    vector<string> data = readData("drivers.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, name, password, license, busId;
+
+        getline(ss, id, '|');
+        getline(ss, name, '|');
+        getline(ss, password, '|');
+        getline(ss, license, '|');
+        getline(ss, busId, '|');
+
+        drivers.push_back(Driver(id, name, password, license, busId));
+    }
+
+    return drivers;
+}
+
+void FileManager::writeDriver(const Driver& driver) const
+{
+    string data = driver.getId() + "|" + driver.getName() + "|" +
+                  driver.getPassword() + "|" + driver.getLicenseNumber() + "|" +
+                  driver.getAssignedBusId();
+
+    appendData("drivers.txt", data);
+}
+
+vector<Admin> FileManager::readAdmins() const
+{
+    vector<Admin> admins;
+    vector<string> data = readData("admins.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, name, password, adminId;
+
+        getline(ss, id, '|');
+        getline(ss, name, '|');
+        getline(ss, password, '|');
+        getline(ss, adminId, '|');
+
+        admins.push_back(Admin(id, name, password, adminId));
+    }
+
+    return admins;
+}
+
+void FileManager::writeAdmin(const Admin& admin) const
+{
+    string data = admin.getId() + "|" + admin.getName() + "|" +
+                  admin.getPassword() + "|" + admin.getAdminId();
+
+    appendData("admins.txt", data);
+}
+
+vector<Bus> FileManager::readBuses() const
+{
+    vector<Bus> buses;
+    vector<string> data = readData("buses.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, number, capacity, availability, status;
+
+        getline(ss, id, '|');
+        getline(ss, number, '|');
+        getline(ss, capacity, '|');
+        getline(ss, availability, '|');
+        getline(ss, status, '|');
+
+        try
+        {
+            buses.push_back(Bus(id, number, stoi(capacity),
+                                availability == "1", status));
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    return buses;
+}
+
+void FileManager::writeBus(const Bus& bus) const
+{
+    string data = bus.getBusId() + "|" + bus.getBusNumber() + "|" +
+                  to_string(bus.getCapacity()) + "|" +
+                  (bus.isAvailable() ? "1" : "0") + "|" + bus.getStatus();
+
+    appendData("buses.txt", data);
+}
+
+vector<Route> FileManager::readRoutes() const
+{
+    vector<Route> routes;
+    vector<string> data = readData("routes.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, name, stopsText, stop;
+        vector<string> stops;
+
+        getline(ss, id, '|');
+        getline(ss, name, '|');
+        getline(ss, stopsText, '|');
+
+        stringstream stopStream(stopsText);
+
+        while (getline(stopStream, stop, ';'))
+            stops.push_back(stop);
+
+        routes.push_back(Route(id, name, stops));
+    }
+
+    return routes;
+}
+
+void FileManager::writeRoute(const Route& route) const
+{
+    string stopsText;
+    vector<string> stops = route.getStops();
+
+    for (size_t i = 0; i < stops.size(); i++)
+    {
+        if (i > 0)
+            stopsText += ";";
+
+        stopsText += stops[i];
+    }
+
+    string data = route.getRouteId() + "|" + route.getRouteName() + "|" +
+                  stopsText;
+
+    appendData("routes.txt", data);
+}
+
+vector<Schedule> FileManager::readSchedules() const
+{
+    vector<Schedule> schedules;
+    vector<string> data = readData("schedules.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, busId, routeId, departureTime;
+
+        getline(ss, id, '|');
+        getline(ss, busId, '|');
+        getline(ss, routeId, '|');
+        getline(ss, departureTime, '|');
+
+        schedules.push_back(Schedule(id, busId, routeId, departureTime));
+    }
+
+    return schedules;
+}
+
+void FileManager::writeSchedule(const Schedule& schedule) const
+{
+    string data = schedule.getScheduleId() + "|" + schedule.getBusId() +
+                  "|" + schedule.getRouteId() + "|" +
+                  schedule.getDepartureTime();
+
+    appendData("schedules.txt", data);
+}
+
+vector<Notification> FileManager::readNotifications() const
+{
+    vector<Notification> notifications;
+    vector<string> data = readData("notifications.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, message, date, targetRole;
+
+        getline(ss, id, '|');
+        getline(ss, message, '|');
+        getline(ss, date, '|');
+        getline(ss, targetRole, '|');
+
+        notifications.push_back(Notification(id, message, date, targetRole));
+    }
+
+    return notifications;
+}
+
+void FileManager::writeNotification(const Notification& notification) const
+{
+    string data = notification.getId() + "|" + notification.getMessage() +
+                  "|" + notification.getDate() + "|" +
+                  notification.getTargetRole();
+
+    appendData("notifications.txt", data);
+}
+
+vector<Report> FileManager::readReports() const
+{
+    vector<Report> reports;
+    vector<string> data = readData("reports.txt");
+
+    for (const string& line : data)
+    {
+        stringstream ss(line);
+        string id, type, date, content;
+
+        getline(ss, id, '|');
+        getline(ss, type, '|');
+        getline(ss, date, '|');
+        getline(ss, content, '|');
+
+        reports.push_back(Report(id, type, date, content));
+    }
+
+    return reports;
+}
+
+void FileManager::writeReport(const Report& report) const
+{
+    string data = report.getReportId() + "|" + report.getReportType() +
+                  "|" + report.getGeneratedDate() + "|" + report.getContent();
+
+    appendData("reports.txt", data);
+}
