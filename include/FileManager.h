@@ -11,7 +11,7 @@
 #include "Route.h"
 #include "Schedule.h"
 #include "Notification.h"
-#include "Report.h"
+class Report;
 
 using namespace std;
 
