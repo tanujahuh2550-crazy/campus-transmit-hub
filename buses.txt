@@ -1,2 +1,2 @@
-23|34|5|1|Active
-12|12|12|1|active
+12|3|45|0|inactice
+14|2|34|1|active
