@@ -1,190 +1,172 @@
-# Campus Transmit Hub - Core Architecture
+# Campus Transmit Hub - Architecture
 
-## Main Flow
+## 1. Overview
 
-main.cpp
-    ↓
-TransmitSystem
-    ↓
-Main Menu
-    ↓
-Student / Driver / Admin
-    ↓
-UserManager
-    ↓
-Login Authentication
-    ↓
-Role Dashboard
+Campus Transmit Hub is a C++17 console-based application for managing college bus information. It includes student, driver, and admin sections, along with options to manage buses, routes, schedules, notifications, and reports.
 
-## Responsibilities
+## 2. System Architecture
+
+The application starts from `main.cpp`. The `TransmitSystem` class manages the program flow, while `FileManager` handles data storage.
+
+```text
+                       main.cpp
+                           |
+                           v
+                    TransmitSystem
+                           |
+                           v
+                       Main Menu
+                           |
+              +------------+------------+
+              |            |            |
+              v            v            v
+           Student       Driver        Admin
+           Section       Section       Section
+              |            |            |
+              v            v            v
+         Registration  Registration  Registration
+         and Login     and Login     and Login
+                                        |
+                                        v
+                                 Admin Dashboard
+                                        |
+              +------------+------------+------------+------------+
+              |            |            |            |            |
+              v            v            v            v            v
+             Bus         Route       Schedule    Notification   Report
+          Management  Management   Management   Management   Management
+              |            |            |            |            |
+              +------------+------------+------------+------------+
+                                        |
+                                        v
+                                    FileManager
+                                        |
+                                        v
+                                    Text Files
+```
+
+## 3. Main Components
 
 ### TransmitSystem
-- Controls the overall program flow
-- Displays the main menu
-- Handles navigation
-- Opens Student, Driver and Admin dashboards
 
-### UserManager
-- Handles registration
-- Handles login
-- Validates user credentials
-- Manages Student, Driver and Admin users
+`TransmitSystem` controls the main program flow and connects the different sections.
 
-### Student
-- Represents a student user
+Important functions:
 
-### Driver
-- Represents a driver user
+- `run()` — Starts the application.
+- `studentSection()` — Opens the student menu.
+- `driverSection()` — Opens the driver menu.
+- `adminSection()` — Opens the admin menu.
+- `studentLogin()` and `studentRegistration()` — Handle student login and registration.
+- `driverLogin()` and `driverRegistration()` — Handle driver login and registration.
+- `adminLogin()` and `adminRegistration()` — Handle admin login and registration.
+- `adminDashboard()` — Displays the admin management options.
 
-### Admin
-- Represents an admin user
+### MainMenu
 
-## UserManager Interface
+Displays the main menu and allows users to select a section.
 
-bool loginStudent(string id, string password);
+### Person, Student, Driver and Admin
 
-bool loginDriver(string id, string password);
+`Person` is the base class for `Student`, `Driver`, and `Admin`. It stores common user details, such as ID, name, and password.
 
-bool loginAdmin(string id, string password);
+The three derived classes represent the different types of users and provide their own implementation of `displayInfo()`.
 
-bool registerStudent(string id, string name, string password);
+## 4. Management Modules
 
+### Bus Management
 
+The `Bus` class stores bus ID, bus number, capacity, availability, and status.
 
-## Bus Module
+Important functions:
+- `getBusId()`
+- `getBusNumber()`
+- `getCapacity()`
+- `isAvailable()`
+- `getStatus()`
+- `displayBus()`
 
-### Bus
+The admin can add buses and view their details.
 
-Responsible for storing basic information about a bus.
+### Route Management
 
-Attributes:
+The `Route` class stores route ID, route name, and stops.
 
-- busId
-- busNumber
-- capacity
-- availability
-- status
+Important functions:
+- `getRouteId()`
+- `getRouteName()`
+- `getStops()`
+- `displayRoute()`
 
-Main functions:
+The admin can add routes, define their stops, and view route details.
 
-- getBusId()
-- getBusNumber()
-- getCapacity()
-- isAvailable()
-- setAvailability()
-- getStatus()
-- setStatus()
-- displayStatus()
-- displayBus()
+### Schedule Management
 
-### Route
+The `Schedule` class stores schedule ID, bus ID, route ID, and departure time.
 
-Responsible for storing route information.
+Important functions:
+- `getScheduleId()`
+- `getBusId()`
+- `getRouteId()`
+- `getDepartureTime()`
+- `displaySchedule()`
 
-Attributes:
+The admin can create and view schedules. Each schedule connects a bus with a route and departure time.
 
-- routeId
-- routeName
-- stops
+### Notification Management
 
-Main functions:
+The `Notification` class stores the notification ID, message, date, and target audience.
 
-- getRouteId()
-- getRouteName()
-- getStops()
-- displayRoute()
+Important functions:
+- `getNotificationId()`
+- `getMessage()`
+- `getDate()`
+- `getTargetRole()`
+- `displayInfo()`
 
-### Schedule
+The admin can add and view notifications for students, drivers, or all users.
 
-Responsible for storing bus schedule information.
+### Report Management
 
-Attributes:
+The `Report` class stores the report ID, report type, generated date, and content.
 
-- scheduleId
-- busId
-- routeId
-- departureTime
+The admin can generate reports and view saved report details.
 
-Main functions:
-
-- getScheduleId()
-- getBusId()
-- getRouteId()
-- getDepartureTime()
-- displaySchedule()
-
-### Bus Module Operations
-
-The Bus Module will provide:
-
-- Bus search
-- Route search
-- Schedule viewing
-- Bus sorting
-- Availability checking
-- Bus status checking
-- Bus status updating
-
-
-## File Handling Module
+## 5. File Handling
 
 ### FileManager
 
-Responsible for reading and writing application data using text files.
+`FileManager` handles reading and writing data to text files. This allows the application to retain records between program runs.
 
-Responsibilities:
+The class provides functions for reading and writing records for the different modules.
 
-- Read records from files
-- Write new records to files
-- Update existing records
-- Delete records when required
-- Maintain data between program runs
+### Data Files
 
-Data files:
+| File | Purpose |
+|---|---|
+| `students.txt` | Stores student records |
+| `drivers.txt` | Stores driver records |
+| `admins.txt` | Stores admin records |
+| `buses.txt` | Stores bus details |
+| `routes.txt` | Stores route details and stops |
+| `schedules.txt` | Stores schedule details |
+| `notifications.txt` | Stores notification records |
+| `reports.txt` | Stores report records |
 
-- students.txt
-- drivers.txt
-- admins.txt
-- buses.txt
-- routes.txt
-- schedules.txt
-- notifications.txt
-- reports.txt
+## 6. Program Flow
 
-Main functions:
+1. The application starts from `main.cpp`.
+2. `TransmitSystem` displays the main menu.
+3. The user selects the student, driver, or admin section.
+4. Students and drivers can register or log in.
+5. After a successful admin login, the admin dashboard opens.
+6. The admin selects a management module.
+7. `FileManager` reads or writes the required data.
+8. The user can return to the previous menu or exit the application.
 
-- readStudents()
-- writeStudent()
-- readDrivers()
-- readAdmins()
-- readBuses()
-- readRoutes()
-- readSchedules()
-- updateData()
-- deleteData()
+## 7. Technologies Used
 
-## Core System
-
-### TransmitSystem
-
-`TransmitSystem` is the main controller of the application.
-
-Responsibilities:
-
-- Start the application
-- Display the main menu
-- Handle user menu choices
-- Open Student, Driver and Admin sections
-- Connect UserManager with the menus
-- Connect Bus Module with the menus
-- Coordinate FileManager during integration
-- Handle logout and return to the main menu
-- Handle application exit
-
-Main functions:
-
-- run()
-- displayMainMenu()
-- studentSection()
-- driverSection()
-- adminSection()
+- C++17
+- Object-Oriented Programming
+- File Handling
+- Git and GitHub
