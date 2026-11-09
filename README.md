@@ -83,5 +83,5 @@ CampusTransmitHub/
 ├── README.md
 └── architecture.md
 ```
-only for college purpose
-For more details about the classes and their functions, see [architecture.md](docs/architecture.md).
+
+For more details about the classes and their functions, see [architecture.md](docs/architecture.md).(only for college purpose)
